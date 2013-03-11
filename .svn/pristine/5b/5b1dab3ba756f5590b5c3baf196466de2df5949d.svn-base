@@ -1,0 +1,36 @@
+package br.com.lvc.utility.screen;
+
+import java.util.List;
+
+import android.app.Activity;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.widget.BaseAdapter;
+
+public abstract class BaseCustomAdapter<T>  extends BaseAdapter {
+	
+	    protected Activity activity;
+	    protected List<T> data;
+	    protected static LayoutInflater inflater = null;
+	    
+	    
+	    public BaseCustomAdapter(Activity a, List<T> d) {
+	        activity = a;
+	        data = d;
+	        inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		}
+
+
+	    public int getCount() {
+	        return data.size();
+	    }
+
+	    public T getItem(int position) {
+	        return data.get(position);
+	    }
+	 
+	    public long getItemId(int position) {
+	        return position;
+	    }
+
+}

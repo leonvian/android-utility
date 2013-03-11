@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear_layout_main"
+    style="@style/LinearLayoutVerticalTheme" >
+
+    <ScrollView style="@style/ScrollViewTheme" >
+
+        <LinearLayout style="@style/LinearLayoutVerticalTheme" >
+
+            <TextView
+                style="@style/TextViewTheme"
+                android:text="Nome:" />
+
+            <br.com.lvc.testarquitetura.framework.component.BaseComponent
+                android:id="@+id/nome"
+                style="@style/EditTextTheme" />
+
+            <TextView
+                style="@style/TextViewTheme"
+                android:text="E-mail:" />
+
+            <br.com.lvc.testarquitetura.framework.component.BaseComponent
+                android:id="@+id/email"
+                style="@style/EditTextTheme" />
+            
+            <TextView
+                style="@style/TextViewTheme"
+                android:text="Veiculo:" />
+
+            <br.com.lvc.testarquitetura.framework.component.BaseComponent
+                android:id="@+id/veiculo"
+                android:enabled="false"
+                android:clickable="false"
+                android:focusable="false"
+                style="@style/EditTextTheme" />
+            
+            <Button
+                android:id="@+id/buscarVeiculo"
+                android:text="Buscar"
+                android:onClick="onClickBuscarVeiculo"
+                style="@style/ButtonCenterTheme" 
+                />
+            
+            
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

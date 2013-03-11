@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    
+       <style name="DashboardButton">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:drawablePadding">2dp</item>
+      <!--  <item name="android:textSize">@dimen/text_size_small</item> -->
+        <item name="android:textStyle">bold</item>
+      <!--  <item name="android:textColor">@color/accent_1</item> -->
+        <item name="android:background">@null</item>
+    </style>
+   
+       <style name="TextViewNormalTheme" parent="@android:style/TextAppearance.Medium">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:textColor">#000000</item>
+	</style>
+	
+    <style name="TextViewTheme" parent="@android:style/TextAppearance.Medium">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:textColor">#000000</item>
+		<item name="android:gravity">center</item>
+	</style>
+
+	<style name="TextViewBoldTheme" parent="@style/TextViewTheme">
+		<item name="android:textStyle">bold</item>
+	</style>
+
+	<style name="EditTextTheme">
+	    <item name="android:inputType">textCapSentences</item>
+		<item name="android:text"></item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:imeOptions">actionDone</item>
+	</style>
+	
+	
+	<style name="EditTextThemeMoney">
+	    <item name="android:inputType">numberDecimal</item>
+		<item name="android:text"></item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:digits">0123456789.,</item>
+		<item name="android:maxLength">18</item>
+		<item name="android:imeOptions">actionDone</item>
+	</style>
+	
+
+	
+	<style name="EditTextDateTheme" parent="@style/EditTextTheme">
+	    	<item name="android:editable">false</item>
+	    	<item name="android:enabled">true</item>
+	    	<item name="android:clickable">true</item>
+	</style>
+
+	<style name="LinearLayoutHorizontalTheme">
+		<item name="android:layout_height">fill_parent</item>
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:orientation">horizontal</item>
+	</style>
+
+	<style name="LinearLayoutVerticalTheme">
+		<item name="android:background">#FFFFFF</item>
+		<item name="android:layout_height">fill_parent</item>
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:orientation">vertical</item>
+	</style>
+	
+	<style name="LinearLayoutHorizontalWrapContentTheme">
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:orientation">horizontal</item>
+	</style>
+
+	<style name="LinearLayoutVerticalWrapContentTheme">
+		<item name="android:background">#FFFFFF</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:orientation">vertical</item>
+	</style>
+
+	<style name="ScrollViewTheme">
+		<item name="android:layout_height">fill_parent</item>
+		<item name="android:layout_width">fill_parent</item>
+	</style>
+	
+	<style name="ButtonTheme">
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">wrap_content</item>
+	</style>
+	
+	<style name="ButtonThemeSameWidth">
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">0dp</item>
+		<item name="android:layout_weight">1</item>
+	</style>
+
+	<style name="ButtonCenterTheme" parent="@style/ButtonTheme">
+		<item name="android:gravity">center</item>
+	</style>
+	
+	<style name="spinner_default">
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">fill_parent</item>
+    </style>
+    
+	<style name="radio_button_default">
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:textColor">#000000</item>
+   </style>
+   
+   <style name="radio_group_default">
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">wrap_content</item>
+   </style>
+    
+    
+</resources>

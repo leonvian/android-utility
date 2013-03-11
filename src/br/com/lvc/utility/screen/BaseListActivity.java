@@ -1,0 +1,222 @@
+package br.com.lvc.utility.screen;
+
+import java.util.List;
+
+import android.app.Dialog;
+import android.app.ListActivity;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.os.Handler;
+import android.text.InputFilter;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import br.com.lvc.utility.BaseApplicationUI;
+import br.com.lvc.utility.R;
+import br.com.lvc.utility.exceptions.EssentialFieldException;
+import br.com.lvc.utility.exceptions.IncorrectFieldsException;
+import br.com.lvc.utility.exceptions.InsufficientDataException;
+import br.com.lvc.utility.taskcontrol.SimpleTask;
+import br.com.lvc.utility.taskcontrol.TaskManager;
+import br.com.lvc.utility.util.PhoneUtil;
+import br.com.lvc.utility.util.ProgressTask;
+import br.com.lvc.utility.util.ProgressTaskRunnable;
+import br.com.lvc.utility.util.WebUTIL;
+
+public class BaseListActivity extends ListActivity {
+	
+	public static final int PROGRESS_DIALOG = 0;
+	private Handler handler = new Handler();
+	public static final int PROGRESS_DIALOG_ID = 10;
+	
+	public EditText getEditText(int resource, int caracterLimit, boolean obrigatory) {
+	 return null;	
+	}
+	
+	public Button getButton(int idRes) {
+		return (Button)findViewById(idRes);
+	}
+
+	public InputFilter[] retrieveCaracterLimit(int limit) {
+		return ScreenManager.getInstance().retrieveCaracterLimit(limit);
+	}
+
+/*	public void verifyEssentialFields(int message, EditText... editTexts) throws EssentialFieldException {
+		ScreenManager.getInstance().verifiedEssentialFields(message,editTexts);
+	} */
+
+	public void verifySuficientFields(int limitMinimum, int message, EditText... editTexts) throws InsufficientDataException {
+		ScreenManager.getInstance().verifiedSuficientFields(limitMinimum, message, editTexts);
+	}	
+
+	public void verifyInvalidCaracterFields(int message, EditText... editTexts) throws IncorrectFieldsException  {
+		ScreenManager.getInstance().verifiedInvalidCharacter(message,editTexts);
+	}
+
+	public void invisibleFields(View... views) {
+		ScreenManager.getInstance().putFieldsInvisible(views);
+	}
+
+	public void visibleFields(View... views) {
+		ScreenManager.getInstance().putFieldsVisible(views);
+	}
+
+	public void disableFields(View... views) {
+		ScreenManager.getInstance().disableFields(views);
+	}
+
+	public void enableFields(View... views) {
+		ScreenManager.getInstance().enableFields(views);
+	}
+
+	public ArrayAdapter<CharSequence> getSpinnerCommomAdapter(int idArray) {
+		return ScreenManager.getInstance().getAdapterToSpinner(this, idArray);
+	}
+
+	public <T>ArrayAdapter<T> getSpinnerCommomAdapter(List<T> array) {
+		return ScreenManager.getInstance().getAdapterToSpinner(this, array);
+	}	
+
+	public void showMessageError(int message, DialogInterface.OnClickListener event) {
+		ScreenManager.getInstance().showDialog(R.string.attention, message, this, event,ScreenManager.MSG_ATTENTION);
+	}
+
+	public void showMessageSucess(int message, DialogInterface.OnClickListener event) {
+		ScreenManager.getInstance().showDialog(R.string.sucess, message, this, event, ScreenManager.MSG_POSITIVE);
+	}	
+	public void showMessageSucessAndFinishOnClickOk(int message) {
+		ScreenManager.getInstance().showDialogWithEventFinishActivity(R.string.sucess, message, this, ScreenManager.MSG_POSITIVE);
+	}	
+	
+	public void showMessageSucessAndCloseDialog(int message) {
+		ScreenManager.getInstance().showDialogWithEventCloseDialog(R.string.sucess, message, this, ScreenManager.MSG_POSITIVE);
+	}	
+	
+	public void showMessageAttention(int message) {
+		ScreenManager.getInstance().showDialog(R.string.attention, message, this, ScreenManager.MSG_ATTENTION);
+	}
+	
+	public void showMessageAttention(int message, DialogInterface.OnClickListener event) {
+		ScreenManager.getInstance().showDialogYesNo(R.string.attention, message, this,event, null,ScreenManager.MSG_ATTENTION);
+	}
+	
+	public void showMessageAttentionOkEvent(int message, DialogInterface.OnClickListener event) {
+		ScreenManager.getInstance().showDialog(R.string.attention, message, this,event,ScreenManager.MSG_ATTENTION);
+	}
+	
+	public void showMessageWarningToExit() {
+		ScreenManager.getInstance().showMessageToExit(this);
+	}
+
+	public void showMessageWithOptionsYesAndNo(int message, DialogInterface.OnClickListener eventYes, DialogInterface.OnClickListener eventNo) {
+		ScreenManager.getInstance().showDialogYesNo(R.string.attention, message, this, eventYes, eventNo, ScreenManager.MSG_ATTENTION);
+	}
+
+	public void showMessageWithOptionsYesAndNo(int message, DialogInterface.OnClickListener eventYes) {
+		showMessageWithOptionsYesAndNo(message, eventYes, null);
+	}	
+	
+	public void showMessageToastLong(int message) {
+		ScreenManager.getInstance().showMessageToastLong(this, message);
+	}
+	
+	public void showMessageToastShort(int message) {
+		ScreenManager.getInstance().showMessageToastShort(this, message);
+	}
+
+	public Bundle getBundleFromApplication() {
+		return ScreenManager.getInstance().getBundleFromApplication(this);
+	}
+
+	public void putBundleOnApplication(Bundle bundle) {
+		ScreenManager.getInstance().putBundleOnApplication(bundle, this);
+	}
+
+	public void goToNextScreenWithFlag(Class nextScreen, int flag) {
+		ScreenManager.getInstance().loadNextScreenFlag(this,nextScreen,flag);
+	}
+	
+	public void goToNextScreen(Class nextScreen) {
+		ScreenManager.getInstance().loadNextScreen(this,nextScreen);
+	}
+
+	public void goToNextScreen(Class nextScreen,Bundle bundle) {
+		ScreenManager.getInstance().loadNextScreenByApplication(this,nextScreen,bundle);
+	}
+
+	public void goToNextScreen(Class nextScreen,int requestCode) {
+		ScreenManager.getInstance().loadNextScreen(this,nextScreen,requestCode);
+	}
+
+	public void goToNextScreen(Class nextScreen,Bundle bundle, int requestCode) {
+		ScreenManager.getInstance().loadNextScreenByApplication(this,nextScreen,bundle,requestCode);
+	}
+	
+	public void makeAPhoneCall(String phone) {
+		PhoneUtil.makeAPhoneCall(phone, this);
+	}
+	
+	public void goToWebSite(String url) {
+		WebUTIL.goToWebSite(url, this);
+	}
+
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		boolean press = false;
+		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+			press = true;
+			backButtonEvent();
+		}
+		return press;
+	}
+
+	public void backButtonEvent() {
+		finish();
+	}
+	
+	public BaseApplicationUI getBaseApplication() {
+		return ScreenManager.getInstance().getBaseApplication(this);
+	}
+
+
+	public void doHandleActionDelayed(Runnable r,long delayMillis) {		
+		handler.postDelayed(r, delayMillis);		
+	}
+
+	public void doHandleAction(Runnable r) {		
+		handler.post(r);		
+	}
+
+
+	@Override
+	public Dialog onCreateDialog(int id) {
+		switch (id) {
+		case PROGRESS_DIALOG_ID:			
+			ProgressDialog progressDialog = new ProgressDialog(this);
+			progressDialog.setMessage(getString(R.string.processing));
+			return progressDialog;
+		default:
+			break;
+		}
+
+		return super.onCreateDialog(id);
+	}
+
+
+	public void executeTask(ProgressTaskRunnable task) {
+		ProgressTask progressTask = new ProgressTask(this, task);
+		progressTask.execute();	
+	}
+	
+	public void executeTask(SimpleTask task) {
+		TaskManager taskManager = new TaskManager(this, task);
+		taskManager.execute();
+	}
+	
+
+	
+
+
+}
