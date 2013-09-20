@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -26,18 +27,18 @@ public class ParseUtil {
 
 		return resultFinal;				
 	}
-	
+
 	public static String toMoney(String valor) {
 		NumberFormat nf = new DecimalFormat("###,##0.00");  
 		String formatado = nf.format(valor);
-		
+
 		return formatado;
 	}
-	
+
 	public static String toMoney(double valor) {
 		NumberFormat nf = new DecimalFormat("###,##0.00");  
 		String formatado = nf.format(valor);
-		
+
 		return formatado;
 	}
 
@@ -152,7 +153,21 @@ public class ParseUtil {
 		return value; 
 	}
 
-	public static Date toDate(String value) {
+	public static String toStringCompleta(Date date) {
+		String value = "";
+
+		if(date == null)
+			return value;
+
+
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");	
+		value = dateFormat.format(date);
+
+
+		return value; 
+	}
+
+	public static Date toDate( String value) {
 		if(value == null)
 			return null;
 
@@ -162,8 +177,30 @@ public class ParseUtil {
 			DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM,locale);		
 			date = dateFormat.parse(value);			
 		} catch ( Exception ex ) {
-			ex.printStackTrace();
-			date = null;		
+			try {	
+				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+				date = dateFormat.parse(value);			
+			} catch ( Exception ex1 ) {
+				
+				try {	
+					DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+					date = dateFormat.parse(value);			
+				} catch ( Exception ex2 ) {
+					
+					try {	
+						DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+						date = dateFormat.parse(value);			
+					} catch ( Exception ex3 ) {
+						ex3.printStackTrace();
+						date = null;	
+					}
+						
+				}
+				
+					
+			}
+
+
 		}
 
 
@@ -234,7 +271,7 @@ public class ParseUtil {
 	public static String toExtenso(Double value) {
 		if(value == null)
 			return "";
-		
+
 		Extenso extenso = new Extenso();
 		extenso.setNumber(value);
 		return extenso.toString();

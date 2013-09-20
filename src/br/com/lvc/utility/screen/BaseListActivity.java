@@ -6,6 +6,9 @@ import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputFilter;
@@ -14,6 +17,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import br.com.lvc.utility.BaseApplicationUI;
 import br.com.lvc.utility.R;
 import br.com.lvc.utility.exceptions.EssentialFieldException;
@@ -150,6 +154,10 @@ public class BaseListActivity extends ListActivity {
 	public void goToNextScreen(Class nextScreen,int requestCode) {
 		ScreenManager.getInstance().loadNextScreen(this,nextScreen,requestCode);
 	}
+	
+	public void recycleImageView(ImageView imageView ) {
+		ScreenManager.getInstance().recycleImageView(imageView);
+	}
 
 	public void goToNextScreen(Class nextScreen,Bundle bundle, int requestCode) {
 		ScreenManager.getInstance().loadNextScreenByApplication(this,nextScreen,bundle,requestCode);
@@ -215,8 +223,5 @@ public class BaseListActivity extends ListActivity {
 		taskManager.execute();
 	}
 	
-
-	
-
 
 }

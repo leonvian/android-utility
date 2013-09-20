@@ -17,6 +17,8 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
+import br.com.lvc.utility.R;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
@@ -50,6 +52,10 @@ public class SynchronousHttpConnection {
 
 	public String post(String url, String data) throws HttpConnectionException  {
 		return executeHTTPConnection(POST, url, data);
+	}
+	
+	public String postLongTimeOut(String url, String data) throws HttpConnectionException  {
+		return executeHTTPConnection(POST, url, data, TIME_OUT_LONGER);
 	}
 
 	public String put(String url, String data) throws HttpConnectionException  {
@@ -114,7 +120,7 @@ public class SynchronousHttpConnection {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new HttpConnectionException(e);
+			throw new HttpConnectionException(R.string.falha_conectar_servidor , e);
 		}
 	}
 

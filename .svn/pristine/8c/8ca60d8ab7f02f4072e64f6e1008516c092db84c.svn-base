@@ -1,0 +1,59 @@
+package br.com.lvc.utility.screen.component;
+
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.Filterable;
+import android.widget.ListView;
+
+public class MyTextWatcher implements TextWatcher {
+
+
+	private Adapter adapter = null;
+	private ListView list = null;
+
+
+	public MyTextWatcher() {
+	}
+
+	public <T extends Object> MyTextWatcher(ArrayAdapter<T> adapter) {		
+		this.adapter = adapter;	
+	}
+
+	public <T extends Object> MyTextWatcher(BaseAdapter adapter) {		
+		this.adapter = adapter;	
+	}
+
+	public <T extends Object> MyTextWatcher(ArrayAdapter<T> adapter, ListView list) {		
+		this.adapter = adapter;	
+		this.list = list;
+	}
+
+
+	public void afterTextChanged(Editable s) {	
+		if (list != null) {
+			for (int i = 0; i < list.getCount(); i++) {
+				list.setItemChecked(i, false);
+			}
+		}
+	}   
+
+
+	public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+	}    
+
+
+	public void onTextChanged(CharSequence s, int start, int before,  int count) {  
+		if(adapter != null && adapter instanceof Filterable) {
+			Filterable filterable = (Filterable) adapter; 
+			filterable.getFilter().filter(s);	
+		} else {
+			Log.e("MY TEXT WATCHER", "ADAPTER NULL OR DOESNT IMPLEMENT FILTERABLE");
+		}
+	}; 
+
+}

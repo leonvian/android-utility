@@ -1,16 +1,14 @@
 package br.com.lvc.utility.connection;
 
-import java.io.IOException;
-
 import android.util.Log;
 
 public abstract class WebServiceComun {
 	
-	private SynchronousHttpConnection synchronousHttpConnection = new SynchronousHttpConnection();
+	protected SynchronousHttpConnection synchronousHttpConnection = new SynchronousHttpConnection();
 	
-	public  <T> T sendDataPUT(String url,Passable passable, Class<T> targetClass) throws IOException, HttpConnectionException {
+	public  <T> T sendDataPUT(String url,Passable passable, Class<T> targetClass) throws HttpConnectionException {
 		String response = null;
-		try {
+		
 			String json = DataSerializer.getInstance().toJson(passable);
 			Log.i("Dados enviados", json);
 
@@ -19,16 +17,10 @@ public abstract class WebServiceComun {
 
 			T t = DataSerializer.getInstance().toObject(response, targetClass);
 
-			return t;
-
-		} catch (IOException e) {
-			throw e;
-		} catch (HttpConnectionException e) {
-			throw new HttpConnectionException("Resposta do servidor: " + response, e);
-		}
+			return t;		
 	}
 
-	public  <T> T sendDataPOST(String url,Passable passable, Class<T> targetClass) throws IOException, HttpConnectionException {
+	public  <T> T sendDataPOST(String url,Passable passable, Class<T> targetClass) throws  HttpConnectionException {
 		String json = DataSerializer.getInstance().toJson(passable);
 		Log.i("Dados enviados", json);
 
@@ -39,15 +31,28 @@ public abstract class WebServiceComun {
 
 		return t;
 	}
+	
+	public  <T> T sendDataPOST(String url,String passable, Class<T> targetClass) throws  HttpConnectionException {
+		String json = passable;
+		Log.i("Dados enviados", json);
 
-	public  <T> T sendDataGet(String url, Class<T> targetClass) throws IOException, HttpConnectionException {
+		String response = synchronousHttpConnection.post(url, json);
+		Log.i("Resposta Servidor", response);
+
+		T t = DataSerializer.getInstance().toObject(response, targetClass);
+
+		return t;
+	}
+
+	public  <T> T sendDataGet(String url, Class<T> targetClass) throws HttpConnectionException {
 		String response = synchronousHttpConnection.get(url);
+		Log.i("Resposta Servidor", response);
 		T t = DataSerializer.getInstance().toObject(response, targetClass);
 
 		return t;
 	}
 	
-	public  <T> T sendDataGetLonger(String url, Class<T> targetClass) throws IOException, HttpConnectionException {
+	public  <T> T sendDataGetLonger(String url, Class<T> targetClass) throws  HttpConnectionException {
 		String response = synchronousHttpConnection.exexuteGetHTTPLonger(url);
 		T t = DataSerializer.getInstance().toObject(response, targetClass);
 

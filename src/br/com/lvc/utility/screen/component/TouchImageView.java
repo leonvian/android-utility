@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 
+
+//br.com.lvc.utility.screen.component.TouchImageView
 public class TouchImageView extends ImageView implements OnTouchListener {
 
     private static final String TAG = "Touch";

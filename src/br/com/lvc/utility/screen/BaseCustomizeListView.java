@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import br.com.lvc.utility.R;
 import br.com.lvc.utility.exceptions.AndroidAppException;
@@ -18,7 +19,7 @@ import br.com.lvc.utility.taskcontrol.TaskResult;
 
 import com.markupartist.android.widget.ActionBar;
 
-public abstract class BaseCustomizeListView<T, Z extends BaseCustomAdapter<T>>  extends BaseListActivity {
+public abstract class BaseCustomizeListView<T, Z extends ArrayAdapter<T>>  extends BaseListActivity {
 
 	protected ListView listView;
 	protected Z adapter;
@@ -27,9 +28,19 @@ public abstract class BaseCustomizeListView<T, Z extends BaseCustomAdapter<T>>  
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		myOnCreate();
+	}
+	
+	
+	protected void myOnCreate() {
 		setContentView(layoutID());
 		loadOnCreate();
+	}
 
+	public void removeActionBar() {
+		View view = findViewById(R.id.actionbar);
+		if(view != null)
+			view.setVisibility(View.GONE);
 	}
 
 	/**
@@ -37,13 +48,16 @@ public abstract class BaseCustomizeListView<T, Z extends BaseCustomAdapter<T>>  
 	 */
 	protected void loadOnCreate() {
 		listView = getListView();
+		configureActionBar();
+		buildList();
+	}
+
+	private void configureActionBar() {
 		View view = findViewById(R.id.actionbar);
 		if(view != null) {
 			ActionBar actionBar = (ActionBar) view; 
 			configureActionBar(actionBar);	
-		}
-
-		buildList();
+		} 
 	}
 
 
@@ -61,13 +75,12 @@ public abstract class BaseCustomizeListView<T, Z extends BaseCustomAdapter<T>>  
 
 		SimpleTask simpleTask = new SimpleTask() {
 
-
-
 			@Override
 			public TaskResult executeTask() throws AndroidAppException {
 
 				TaskResult taskResult = new TaskResult();
 				elements = getListElements();
+
 				if(elements.isEmpty())
 					throw new ListNoItensException(R.string.nenhum_item_encontrado);
 
@@ -82,6 +95,8 @@ public abstract class BaseCustomizeListView<T, Z extends BaseCustomAdapter<T>>  
 
 			@Override
 			public void processAfterFailTask(AndroidAppException e) {
+				if(elements != null)
+					configureListViewProcessAfterTask();
 				treatFailGeneral(e);
 			}
 		};
@@ -91,26 +106,28 @@ public abstract class BaseCustomizeListView<T, Z extends BaseCustomAdapter<T>>  
 
 
 	public void configureListViewProcessAfterTask() {
-		adapter = newAdapter(elements);         
-		listView.setAdapter(adapter);
-		listView.setOnItemClickListener(new OnItemClickListener() {
+		if(listView != null) {
+			adapter = newAdapter(elements);         
+			listView.setAdapter(adapter);
+			listView.setOnItemClickListener(new OnItemClickListener() {
 
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				T selectedObject = adapter.getItem(position);
-				onClick(selectedObject); 
-			}
-		});
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					T selectedObject = adapter.getItem(position);
+					onClick(selectedObject); 
+				}
+			});
 
-		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
+			listView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
-			@Override
-			public boolean onItemLongClick(AdapterView<?> arg0,	View arg1, int position, long arg3) {
-				T selectedObject = adapter.getItem(position);
-				onItemLongClickEvent(selectedObject);
-				return false;
-			}
-		});
+				@Override
+				public boolean onItemLongClick(AdapterView<?> arg0,	View arg1, int position, long arg3) {
+					T selectedObject = adapter.getItem(position);
+					onItemLongClickEvent(selectedObject);
+					return false;
+				}
+			});
+		}
 	}
 
 	public void onItemLongClickEvent(T selectedObject) {
@@ -130,12 +147,12 @@ public abstract class BaseCustomizeListView<T, Z extends BaseCustomAdapter<T>>  
 			showMessageInToastMode(e);
 
 			break;
-		case AndroidAppException.MODE_DIALOG:
+		default:
 			showMessageInDialogMode(e);
 			break;
 		}
 	}
-	
+
 	private void showMessageInToastMode(AndroidAppException e) {
 		showMessageToastLong(e.getMessageFromResource());
 	}
@@ -153,7 +170,7 @@ public abstract class BaseCustomizeListView<T, Z extends BaseCustomAdapter<T>>  
 		showMessageError(e.getMessageFromResource(), event);	
 	}
 
-	protected abstract void configureActionBar(ActionBar actionBar);
+	public void configureActionBar(ActionBar actionBar) { }
 
 	public abstract void onClick(T clickedElement);
 

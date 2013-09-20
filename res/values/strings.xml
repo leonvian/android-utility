@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
+    <string name="nenhum_registro_encontrado">[ Nenhum registro encontrado ]</string>
+    
+    <string name="digite_aqui_para_filtrar">Digite aqui para filtrar:</string>
+    
+    <string name="falha_ao_serializar">Falha ao desserializar dados do servidor!</string>
+    
+    <string name="este_campo_deve_ser_preenchido">Este campo deve ser preenchido.</string>
     <string name="este_campo_e_obrigatorio">Este campo é obrigatório!</string>
     <string name="no_name">""</string>
     <string name="hello">Hello World!</string>
     <string name="app_name">AndroidUtility</string>
     <string name="attention">Atenção</string>
+    <string name="wait">Aguarde...</string>
+    <string name="empty"> </string>
     <string name="do_you_really_want_out">Deseja realmente sair?</string>
     <string name="do_you_really_want_delete">Deseja realmente deletar esse registro?</string>
     <string name="yes">Sim</string>
@@ -18,6 +27,7 @@
     <string name="register_not_found">Registro(s) não encontrado.</string>
     <string name="obrigatory_field">Este campo deve ser preenchido.</string>
     
+    <string name="no_video_found">Video não encontrado.</string>
     <string name="find">Buscar</string>
     <string name="novo">Novo</string>
     <string name="salvar">Salvar</string>
@@ -28,6 +38,9 @@
     <string name="telefone_nao_informado">Telefone não informado!</string>
     <string name="gostaria_realizar_ligacao">Gostaria de telefonar para este local?</string>
     <string name="web_site_nao_informado">URL do web site não informado!</string>
+    
+    <string name="falha_conectar_servidor">Falha ao conectar com o servidor.</string>
+   <string name="dispositivo_desconectado">Dispositivo desconectado.</string>
     
     <string-array name="list_action_menu">
         <item>Selecionar</item>

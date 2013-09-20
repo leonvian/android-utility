@@ -13,15 +13,21 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Html;
 import android.text.InputFilter;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager.LayoutParams;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 import br.com.lvc.utility.BaseApplicationUI;
 import br.com.lvc.utility.R;
@@ -83,6 +89,11 @@ public class ScreenManager {
 		else
 			return false; */ return true;
 	}
+	
+	public static void dismissKeyboard(Activity activity,EditText editText) {
+		InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+	}
 
 	public static boolean isIntentAvailable(Context context, String action) {
 		final PackageManager packageManager = context.getPackageManager();
@@ -90,6 +101,19 @@ public class ScreenManager {
 		List<ResolveInfo> list = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
 		return list.size() > 0;
 	}
+	
+	public void recycleImageView(ImageView imageView) {
+		if(imageView == null)
+			return;
+		
+		Drawable drawable = imageView.getDrawable();
+		if (drawable instanceof BitmapDrawable) {
+			BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+			Bitmap bitmap = bitmapDrawable.getBitmap();
+			bitmap.recycle();
+		}	
+	}
+	
 
 	public void shareIntent(Activity currentActivity) {		
 		Intent intent = new Intent(Intent.ACTION_SEND);
@@ -237,6 +261,12 @@ public class ScreenManager {
 	public void showDialog(int title, int message, Context context, DialogInterface.OnClickListener eventAction, int type) {	
 		showDialog(context.getString(title), context.getString(message), context, eventAction, type);		
 	}
+	
+	//ScreenManager.getInstance().showDialog(R.string.attention, message, this, ScreenManager.MSG_ATTENTION);
+	
+	public void showDialogAttention(int message, Context context) {	
+		showDialog(R.string.attention, message, context, null,ScreenManager.MSG_ATTENTION);
+	}
 
 
 	public void showDialog(int title, int message, Context context, int type) {	
@@ -252,13 +282,27 @@ public class ScreenManager {
 		showDialog(title, message, context, null,type);
 	}
 	
+	public void showMessageToastShort(Context context, String message) {
+		Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+		toast.setGravity(Gravity.CENTER, 0, 0);
+		toast.show();
+	}
+	
+	public void showMessageToastLong(Context context, String message) {
+		Toast toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
+		toast.setGravity(Gravity.CENTER, 0, 0);
+		toast.show();
+	}
+	
 	public void showMessageToastShort(Context context, int message) {
 		Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+		toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.show();
 	}
 	
 	public void showMessageToastLong(Context context, int message) {
 		Toast toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
+		toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.show();
 	}
 

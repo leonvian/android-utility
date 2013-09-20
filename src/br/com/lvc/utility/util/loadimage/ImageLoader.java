@@ -28,7 +28,7 @@ public class ImageLoader {
 
 	private static ImageLoader instance;
 	int stub_id = R.drawable.no_image;
-	private int tipo = FileImageDecoder.IMAGE_VIEW;
+	private int tipo = FileImageDecoder.MEDIUM_BITMAP;
 
 	public void setTipo(int tipo) {
 		this.tipo = tipo;
@@ -56,6 +56,7 @@ public class ImageLoader {
 
 	public void displayImage(String url, ImageView imageView) {
 		displayImage( url,  imageView, null);
+	
 	}
 
 	public void displayImage(String url, ImageView imageView, ProgressBar progressBar) {
@@ -169,10 +170,12 @@ public class ImageLoader {
 	
 	private  Bitmap decodeFile(int tipo, File file) {
 
-		if(tipo == FileImageDecoder.LIST_VIEW) {
+		if(tipo == FileImageDecoder.SMALL_BITMAP) {
 			return FileImageDecoder.decodeFileListView(file);
-		} else {
+		} else if(tipo == FileImageDecoder.MEDIUM_BITMAP) {
 			return FileImageDecoder.decodeFile(file);
+		} else {
+			return FileImageDecoder.decodeFileLarger(file);
 		}
 	}
 

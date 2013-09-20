@@ -13,8 +13,8 @@ public class TaskManager extends AsyncTask<Void, String, TaskResult>{
 
 	private Context context;
 	private ProgressDialog progressDialog;
-	private int messageProgress = R.string.processing;
-	private int titleProgress = R.string.attention;
+	private int messageProgress = R.string.wait;
+	private int titleProgress = R.string.empty;
 	private SimpleTask task;
 
 	public TaskManager(Context context,SimpleTask task,int messageProgress,int titleProgress) {
@@ -32,14 +32,18 @@ public class TaskManager extends AsyncTask<Void, String, TaskResult>{
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		showProgressDialog();
+		try {
+			showProgressDialog();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	
+
 	@Override
 	protected void onProgressUpdate(String... values) {
 		super.onProgressUpdate(values);
 	}
-	
+
 	@Override
 	protected TaskResult doInBackground(Void... params) {
 		TaskResult taskResult = new TaskResult();
@@ -65,8 +69,13 @@ public class TaskManager extends AsyncTask<Void, String, TaskResult>{
 	}
 
 	private void closeProgressDialog() {
-		if(progressDialog != null)
-			progressDialog.dismiss();
+		try {
+			if(progressDialog != null && progressDialog.isShowing())
+				progressDialog.dismiss(); 	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	private void showProgressDialog() {
