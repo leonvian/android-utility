@@ -8,7 +8,7 @@
     <string name="falha_ao_serializar">Falha ao desserializar dados do servidor!</string>
     
     <string name="este_campo_deve_ser_preenchido">Este campo deve ser preenchido.</string>
-    <string name="este_campo_e_obrigatorio">Este campo é obrigatório!</string>
+    <string name="este_campo_e_obrigatorio">É obrigatório o preenchimento deste campo.</string>
     <string name="no_name">""</string>
     <string name="hello">Hello World!</string>
     <string name="app_name">AndroidUtility</string>

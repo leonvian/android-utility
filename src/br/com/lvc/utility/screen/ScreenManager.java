@@ -284,25 +284,25 @@ public class ScreenManager {
 	
 	public void showMessageToastShort(Context context, String message) {
 		Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
-		toast.setGravity(Gravity.CENTER, 0, 0);
+		//toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.show();
 	}
 	
 	public void showMessageToastLong(Context context, String message) {
 		Toast toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
-		toast.setGravity(Gravity.CENTER, 0, 0);
+		//toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.show();
 	}
 	
 	public void showMessageToastShort(Context context, int message) {
 		Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
-		toast.setGravity(Gravity.CENTER, 0, 0);
+		//toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.show();
 	}
 	
 	public void showMessageToastLong(Context context, int message) {
 		Toast toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
-		toast.setGravity(Gravity.CENTER, 0, 0);
+		//toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.show();
 	}
 

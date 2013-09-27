@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import android.app.Activity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -23,6 +24,7 @@ public class CustomAdaptarImage<T extends ImageDetail> extends BaseCustomAdapter
 	@Override
 	public View getView(int position, View viewGroup, ViewGroup parent) {
 		ImageDetail componente = 	data.get(position);
+		LayoutInflater inflater = LayoutInflater.from(activity);
 
 		if(viewGroup == null) 
 			viewGroup  = (ViewGroup) inflater.inflate(R.layout.item_com_foto, null);

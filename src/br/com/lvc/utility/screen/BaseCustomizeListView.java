@@ -5,6 +5,8 @@ import java.util.List;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -168,6 +170,27 @@ public abstract class BaseCustomizeListView<T, Z extends ArrayAdapter<T>>  exten
 			}
 		};
 		showMessageError(e.getMessageFromResource(), event);	
+	}
+	
+	
+	protected TextWatcher getTextWatcher() {
+		TextWatcher textWatcher = new TextWatcher() {
+		     
+		    @Override
+		    public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+		    	adapter.getFilter().filter(cs);   
+		    }
+		     
+		    @Override
+		    public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) { 
+		    }
+		     
+		    @Override
+		    public void afterTextChanged(Editable arg0) {
+		    }
+		};
+		
+		return textWatcher;
 	}
 
 	public void configureActionBar(ActionBar actionBar) { }

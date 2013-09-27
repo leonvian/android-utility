@@ -43,6 +43,14 @@ public abstract class WebServiceComun {
 
 		return t;
 	}
+	
+	public  void sendDataPOST(String url,String passable) throws  HttpConnectionException {
+		String json = passable;
+		Log.i("Dados enviados", json);
+
+		String response = synchronousHttpConnection.post(url, json);
+		Log.i("Resposta Servidor", response);
+	}
 
 	public  <T> T sendDataGet(String url, Class<T> targetClass) throws HttpConnectionException {
 		String response = synchronousHttpConnection.get(url);
