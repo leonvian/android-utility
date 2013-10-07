@@ -178,7 +178,12 @@ public abstract class BaseCustomizeListView<T, Z extends ArrayAdapter<T>>  exten
 		     
 		    @Override
 		    public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
-		    	adapter.getFilter().filter(cs);   
+		    	try {
+		    		adapter.getFilter().filter(cs);	
+		    	} catch (Exception e) {
+		    		e.printStackTrace();
+		    	}
+		    	   
 		    }
 		     
 		    @Override
