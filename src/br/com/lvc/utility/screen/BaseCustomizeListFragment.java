@@ -30,7 +30,6 @@ import br.com.lvc.utility.exceptions.AndroidAppException;
 import br.com.lvc.utility.exceptions.EssentialFieldException;
 import br.com.lvc.utility.exceptions.IncorrectFieldsException;
 import br.com.lvc.utility.exceptions.InsufficientDataException;
-import br.com.lvc.utility.exceptions.ListNoItensException;
 import br.com.lvc.utility.taskcontrol.SimpleTask;
 import br.com.lvc.utility.taskcontrol.TaskManager;
 import br.com.lvc.utility.taskcontrol.TaskResult;
@@ -43,13 +42,13 @@ import br.com.lvc.utility.util.WebUTIL;
 import com.markupartist.android.widget.ActionBar;
 
 public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T>> extends ListFragment {
-	
+
 
 	protected ListView listView;
 	protected Z adapter;
 	public  List<T> elements = null;
 
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,	Bundle savedInstanceState) {
 		View view = inflater.inflate(layoutID(), null);
@@ -61,12 +60,12 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 	}
 
 	public void removeActionBar(View viewMain) {
-	   View view = viewMain.findViewById(R.id.actionbar);
+		View view = viewMain.findViewById(R.id.actionbar);
 		if(view != null)
 			view.setVisibility(View.GONE);
 	}
 
-	
+
 	private void configureActionBar(View viewMain) {
 		View view = viewMain.findViewById(R.id.actionbar);
 		if(view != null) {
@@ -80,7 +79,7 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 		SimpleTask simpleTask = getSimpleTask();
 		executeTask(simpleTask);
 	}
-	
+
 
 	protected void executeTask(SimpleTask task) {
 		TaskManager taskManager = new TaskManager(getActivity(), task);
@@ -101,10 +100,7 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 			public TaskResult executeTask() throws AndroidAppException {
 
 				TaskResult taskResult = new TaskResult();
-				elements = getListElements();
-
-				if(elements.isEmpty())
-					throw new ListNoItensException(R.string.nenhum_item_encontrado);
+				elements = getListElements(); 
 
 				return taskResult;
 			}
@@ -153,9 +149,7 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 	}
 
 	public void treatFailGeneral(AndroidAppException e) {
-		if(!(e instanceof ListNoItensException)) {
-			showMessageErro(e);
-		}
+		showMessageErro(e);
 	}
 
 	public void showMessageErro(AndroidAppException e) {
@@ -185,13 +179,13 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 		};
 		ScreenManager.getInstance().showDialog(R.string.error, e.getMessageFromResource(), getActivity(), event,ScreenManager.MSG_ERROR);	
 	}
-	
+
 	private void showMessageToastLong(int message) {
 		Toast.makeText(getActivity(), getString(message), Toast.LENGTH_SHORT).show();
 	}
-	
-	
-	
+
+
+
 
 	public void configureActionBar(ActionBar actionBar) { }
 
@@ -200,8 +194,8 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 	public abstract Z newAdapter(List<T> elements);
 
 	public abstract List<T> getListElements() throws AndroidAppException;
-	
-	
+
+
 	private Handler handler = new Handler();
 
 	private List<ScreenView>  screenViews = new ArrayList<ScreenView>();
@@ -334,7 +328,7 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 	protected void showMessageWarningToExit() {
 		ScreenManager.getInstance().showMessageToExit(getActivity());
 	}
-	
+
 	protected void showMessageWithOptionsYesAndNo(int message, DialogInterface.OnClickListener eventYes) {
 		showMessageWithOptionsYesAndNo(message, eventYes, null);
 	}
@@ -347,7 +341,7 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 		ScreenManager.getInstance().showDialogYesNo(R.string.attention, message, getActivity(), eventYes, eventNo, ScreenManager.MSG_ATTENTION);
 	}
 
-		
+
 
 	protected Bundle getBundleFromApplication() {
 		return ScreenManager.getInstance().getBundleFromApplication(getActivity());
@@ -425,7 +419,7 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 	public void recycleImageView(ImageView imageView ) {
 		ScreenManager.getInstance().recycleImageView(imageView);
 	}
- 
+
 	public void hideKeyBoard() {
 		try {
 			InputMethodManager inputManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);

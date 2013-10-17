@@ -15,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import br.com.lvc.utility.R;
 import br.com.lvc.utility.exceptions.AndroidAppException;
-import br.com.lvc.utility.exceptions.ListNoItensException;
 import br.com.lvc.utility.taskcontrol.SimpleTask;
 import br.com.lvc.utility.taskcontrol.TaskResult;
 
@@ -32,8 +31,8 @@ public abstract class BaseCustomizeListView<T, Z extends ArrayAdapter<T>>  exten
 		super.onCreate(savedInstanceState);
 		myOnCreate();
 	}
-	
-	
+
+
 	protected void myOnCreate() {
 		setContentView(layoutID());
 		loadOnCreate();
@@ -79,13 +78,8 @@ public abstract class BaseCustomizeListView<T, Z extends ArrayAdapter<T>>  exten
 
 			@Override
 			public TaskResult executeTask() throws AndroidAppException {
-
 				TaskResult taskResult = new TaskResult();
-				elements = getListElements();
-
-				if(elements.isEmpty())
-					throw new ListNoItensException(R.string.nenhum_item_encontrado);
-
+				elements = getListElements();				
 				return taskResult;
 			}
 
@@ -137,9 +131,7 @@ public abstract class BaseCustomizeListView<T, Z extends ArrayAdapter<T>>  exten
 	}
 
 	public void treatFailGeneral(AndroidAppException e) {
-		if(!(e instanceof ListNoItensException)) {
-			showMessageErro(e);
-		}
+		showMessageErro(e);
 	}
 
 	public void showMessageErro(AndroidAppException e) {
@@ -171,30 +163,30 @@ public abstract class BaseCustomizeListView<T, Z extends ArrayAdapter<T>>  exten
 		};
 		showMessageError(e.getMessageFromResource(), event);	
 	}
-	
-	
+
+
 	protected TextWatcher getTextWatcher() {
 		TextWatcher textWatcher = new TextWatcher() {
-		     
-		    @Override
-		    public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
-		    	try {
-		    		adapter.getFilter().filter(cs);	
-		    	} catch (Exception e) {
-		    		e.printStackTrace();
-		    	}
-		    	   
-		    }
-		     
-		    @Override
-		    public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) { 
-		    }
-		     
-		    @Override
-		    public void afterTextChanged(Editable arg0) {
-		    }
+
+			@Override
+			public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+				try {
+					adapter.getFilter().filter(cs);	
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) { 
+			}
+
+			@Override
+			public void afterTextChanged(Editable arg0) {
+			}
 		};
-		
+
 		return textWatcher;
 	}
 

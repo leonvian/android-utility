@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="nenhum_registro_encontrado">[ No elements found ]</string>
+    
+    <string name="digite_aqui_para_filtrar">Type here to filter:</string>
+    
+    <string name="falha_ao_serializar">Fail to desserialize data receveid from server.</string>
+    
+    <string name="este_campo_deve_ser_preenchido">This field must be filled.</string>
+    <string name="este_campo_e_obrigatorio">This is a obrigatory field.</string>
+    <string name="no_name">""</string>
+    <string name="hello">Hello World!</string>
+    <string name="app_name">AndroidUtility</string>
+    <string name="attention">Attention</string>
+    <string name="wait">wait...</string>
+    <string name="empty"> </string>
+    <string name="do_you_really_want_out">Do you really want go out?</string>
+    <string name="do_you_really_want_delete">Do you really want delete?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="options">Options</string>
+    <string name="processing">Processing</string>
+    <string name="sucess">Sucess</string>
+    <string name="error">Error</string>
+    <string name="clean">Clean</string>
+    <string name="register_not_found">Register(s) not found.</string>
+    <string name="obrigatory_field">This field must be filled.</string>
+    
+    <string name="no_video_found">Video not found.</string>
+    <string name="find">Find</string>
+    <string name="novo">New</string>
+    <string name="salvar">Save</string>
+    <string name="sair">Leave</string>
+    <string name="adicionar">Add</string>
+    
+    <string name="nenhum_item_encontrado">Itens not found.</string>
+    <string name="telefone_nao_informado">Phone not informed.</string>
+    <string name="gostaria_realizar_ligacao">Would you like to call for this place?</string>
+    <string name="web_site_nao_informado">URL not informed!</string>
+    
+    <string name="falha_conectar_servidor">Fail to connect on server.</string>
+   <string name="dispositivo_desconectado">Device desconected.</string>
+    
+    <string-array name="list_action_menu">
+        <item>Select</item>
+        <item>Edit</item>
+        <item>Delete</item>
+        <item>Cancel</item>        
+    </string-array>
+    
+</resources>

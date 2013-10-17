@@ -24,7 +24,7 @@
     <string name="sucess">Sucesso</string>
     <string name="error">Erro</string>
     <string name="clean">Limpar</string>
-    <string name="register_not_found">Registro(s) não encontrado(s).</string>
+    <string name="register_not_found">Registro(s) não encontrado.</string>
     <string name="obrigatory_field">Este campo deve ser preenchido.</string>
     
     <string name="no_video_found">Video não encontrado.</string>

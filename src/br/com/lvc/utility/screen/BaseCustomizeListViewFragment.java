@@ -7,12 +7,11 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ListView;
 import br.com.lvc.utility.R;
 import br.com.lvc.utility.exceptions.AndroidAppException;
-import br.com.lvc.utility.exceptions.ListNoItensException;
 import br.com.lvc.utility.taskcontrol.SimpleTask;
 import br.com.lvc.utility.taskcontrol.TaskResult;
 
@@ -32,7 +31,7 @@ public abstract class BaseCustomizeListViewFragment<T, Z extends BaseCustomAdapt
 	}
 
 	public void removeActionBar() {
-	   View view = findViewById(R.id.actionbar);
+		View view = findViewById(R.id.actionbar);
 		if(view != null)
 			view.setVisibility(View.GONE);
 	}
@@ -45,7 +44,7 @@ public abstract class BaseCustomizeListViewFragment<T, Z extends BaseCustomAdapt
 		configureActionBar();
 		buildList();
 	}
-	
+
 	private void configureActionBar() {
 		View view = findViewById(R.id.actionbar);
 		if(view != null) {
@@ -74,9 +73,6 @@ public abstract class BaseCustomizeListViewFragment<T, Z extends BaseCustomAdapt
 
 				TaskResult taskResult = new TaskResult();
 				elements = getListElements();
-
-				if(elements.isEmpty())
-					throw new ListNoItensException(R.string.nenhum_item_encontrado);
 
 				return taskResult;
 			}
@@ -125,9 +121,7 @@ public abstract class BaseCustomizeListViewFragment<T, Z extends BaseCustomAdapt
 	}
 
 	public void treatFailGeneral(AndroidAppException e) {
-		if(!(e instanceof ListNoItensException)) {
-			showMessageErro(e);
-		}
+		showMessageErro(e);
 	}
 
 	public void showMessageErro(AndroidAppException e) {
