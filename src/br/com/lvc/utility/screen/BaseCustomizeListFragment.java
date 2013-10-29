@@ -184,9 +184,7 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 		Toast.makeText(getActivity(), getString(message), Toast.LENGTH_SHORT).show();
 	}
 
-
-
-
+ 
 	public void configureActionBar(ActionBar actionBar) { }
 
 	public abstract void onClick(T clickedElement);
@@ -320,6 +318,16 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 	protected void showMessageToastShort(int message) {
 		ScreenManager.getInstance().showMessageToastShort(getActivity(), message);
 	}
+	
+	
+	protected void showMessageToastLong(String message) {
+		ScreenManager.getInstance().showMessageToastLong(getActivity(), message);
+	}
+
+	protected void showMessageToastShort(String message) {
+		ScreenManager.getInstance().showMessageToastShort(getActivity(), message);
+	}
+
 
 	protected void showMessageAttentionYesNo(int message, DialogInterface.OnClickListener yesEvent) {
 		ScreenManager.getInstance().showDialogYesNo(R.string.attention, message, getActivity(),yesEvent, null,ScreenManager.MSG_ATTENTION);

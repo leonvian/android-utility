@@ -130,6 +130,15 @@ public class BaseListActivity extends ListActivity {
 	public void showMessageToastShort(int message) {
 		ScreenManager.getInstance().showMessageToastShort(this, message);
 	}
+	
+	protected void showMessageToastLong(String message) {
+		ScreenManager.getInstance().showMessageToastLong(this, message);
+	}
+
+	protected void showMessageToastShort(String message) {
+		ScreenManager.getInstance().showMessageToastShort(this, message);
+	}
+
 
 	public Bundle getBundleFromApplication() {
 		return ScreenManager.getInstance().getBundleFromApplication(this);

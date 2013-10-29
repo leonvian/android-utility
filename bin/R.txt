@@ -383,6 +383,7 @@ int style ScrollViewTheme 0x7f080010
 int style TextViewBoldTheme 0x7f080008
 int style TextViewNormalTheme 0x7f080006
 int style TextViewTheme 0x7f080007
+int style Theme_Transparent 0x7f080025
 int style radio_button_default 0x7f080015
 int style radio_group_default 0x7f080016
 int style spinner_default 0x7f080014

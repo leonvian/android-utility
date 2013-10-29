@@ -28,6 +28,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import br.com.lvc.utility.BaseApplicationUI;
 import br.com.lvc.utility.R;
@@ -401,6 +402,36 @@ public class ScreenManager {
 	public void putBundleOnApplication(Bundle bundle, Context context) {
 		BaseApplicationUI baseApplication = (BaseApplicationUI)context.getApplicationContext();
 		baseApplication.setBundle(bundle);
+	}
+	
+	public void putErrorMessengerObrigatoryField(Context context, TextView... editTexts) {
+		putErrorMessengerObrigatoryField(R.string.este_campo_deve_ser_preenchido, context,editTexts);
+	}
+	
+	public void putErrorMessengerObrigatoryField(int resMessage, Context context, TextView... editTexts) { 
+		for(TextView editText : editTexts) {
+			if(!isFieldFilled(editText)) {
+				String erroMessage = context.getString(resMessage);
+				editText.setError(erroMessage);
+			}	
+		}
+	}
+
+	public boolean isFieldsFilleds(TextView... editTexts) {
+		for(TextView editText : editTexts) {
+			if(!isFieldFilled(editText))
+				return false;
+		}
+		return true;
+	}
+
+
+	public boolean isFieldFilled(TextView editText) {
+		String text = editText.getText().toString();
+		if(text.length() == 0)
+			return false;
+		else
+			return true;
 	}
 
 	public BaseApplicationUI getBaseApplication(Context context) {

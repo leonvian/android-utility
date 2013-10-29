@@ -24,8 +24,8 @@ import android.graphics.BitmapFactory;
 
 
 public class SynchronousHttpConnection {
-	
-	
+
+
 	private static final int TIME_OUT_DEFAULT = 30000;
 	private static final int TIME_OUT_LONGER = 60000;
 
@@ -44,20 +44,15 @@ public class SynchronousHttpConnection {
 	public String get(String url) throws HttpConnectionException  {
 		return executeHTTPConnection(GET, url, null);
 	}
-	
-	public String exexuteGetHTTPLonger(String url) throws HttpConnectionException  {
+
+	public String executeGetHTTPLonger(String url) throws HttpConnectionException  {
 		return executeHTTPConnection(GET, url, null,TIME_OUT_LONGER);
 	}
-
 
 	public String post(String url, String data) throws HttpConnectionException  {
 		return executeHTTPConnection(POST, url, data);
 	}
-	
-	public String postLongTimeOut(String url, String data) throws HttpConnectionException  {
-		return executeHTTPConnection(POST, url, data, TIME_OUT_LONGER);
-	}
-
+ 
 	public String put(String url, String data) throws HttpConnectionException  {
 		return executeHTTPConnection(PUT, url, data);
 	}
@@ -65,33 +60,67 @@ public class SynchronousHttpConnection {
 	public String delete(String url) throws HttpConnectionException  {
 		return executeHTTPConnection(DELETE, url, null);
 	}
+	
+ 
 
+	public HttpResponse getHttpResponseAsReturn(String url) throws HttpConnectionException  {
+		return executeHTTPConnectionGetResponse(GET, url, null,TIME_OUT_DEFAULT);
+	}
+
+	public HttpResponse executeGetHTTPLongerHttpResponseAsReturn(String url) throws HttpConnectionException  {
+		return executeHTTPConnectionGetResponse(GET, url, null,TIME_OUT_LONGER);
+	}
+
+	public HttpResponse postHttpResponseAsReturn(String url, String data) throws HttpConnectionException  {
+		return executeHTTPConnectionGetResponse(POST, url, data,TIME_OUT_LONGER);
+	}
+ 
+	public HttpResponse putHttpResponseAsReturn(String url, String data) throws HttpConnectionException  {
+		return executeHTTPConnectionGetResponse(PUT, url, data,TIME_OUT_LONGER);
+	}
+
+	public HttpResponse deleteHttpResponseAsReturn(String url) throws HttpConnectionException  {
+		return executeHTTPConnectionGetResponse(DELETE, url, null,TIME_OUT_LONGER);
+	}
+	
+	 
 	public Bitmap bitmap(String url) throws IllegalStateException, IOException {
 		return executeHTTPConnectionBitmap(url);
 	}
 	
-	
-
+	public String postLongTimeOut(String url, String data) throws HttpConnectionException  {
+		return executeHTTPConnection(POST, url, data, TIME_OUT_LONGER);
+	}
 
 	private String executeHTTPConnection(int method, String url, String data) throws  HttpConnectionException {
-	    String result = executeHTTPConnection(method, url, data, TIME_OUT_DEFAULT);
-	    return result;
+		String result = executeHTTPConnection(method, url, data, TIME_OUT_DEFAULT);
+		return result;
 	}
-	
 	
 	private String executeHTTPConnection(int method, String url, String data, int timeOut) throws  HttpConnectionException {
 		try {
+			HttpResponse response =	executeHTTPConnectionGetResponse(method, url, data, timeOut);
+			
+			return processResponse(response.getEntity());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new HttpConnectionException(R.string.falha_conectar_servidor , e);
+		}
+	}
 
+	private HttpResponse executeHTTPConnectionGetResponse(int method, String url, String data, int timeOut) throws  HttpConnectionException {
+		HttpResponse response = null; 
+		try { 
 			HttpClient httpClient = new DefaultHttpClient();
 			HttpConnectionParams.setSoTimeout(httpClient.getParams(), timeOut);
-			HttpResponse response = null;
+
 			switch (method) {
 			case GET:
-				
-			//  url =	URLEncoder.encode(url, "UTF-8");
-			//	url = convertURL(url);
+
+				//  url =	URLEncoder.encode(url, "UTF-8");
+				//	url = convertURL(url);
 				HttpGet httpGet = new HttpGet(url);
-			//	httpGet.addHeader(new BasicHeader("Content-Type", "text/plain; charset=utf-8"));
+				//	httpGet.addHeader(new BasicHeader("Content-Type", "text/plain; charset=utf-8"));
 				response = httpClient.execute(httpGet);
 				break;
 			case POST:
@@ -116,15 +145,15 @@ public class SynchronousHttpConnection {
 				throw new HttpConnectionException("Unknown Request.");
 			}  
 
-			return processResponse(response.getEntity());
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new HttpConnectionException(R.string.falha_conectar_servidor , e);
 		}
+
+		return response;
 	}
-
-
+	 
 	private Bitmap executeHTTPConnectionBitmap(String url) throws IllegalStateException, IOException {
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpConnectionParams.setSoTimeout(httpClient.getParams(), TIME_OUT_LONGER);

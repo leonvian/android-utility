@@ -5,6 +5,7 @@
      style="@style/LinearLayoutVerticalTheme" >
 
     <TextView
+        
         style="@style/TextViewTheme"
         android:text="Marca:" />
 

@@ -440,6 +440,7 @@ containing a value of this type.
         public static int TextViewBoldTheme=0x7f080008;
         public static int TextViewNormalTheme=0x7f080006;
         public static int TextViewTheme=0x7f080007;
+        public static int Theme_Transparent=0x7f080025;
         public static int radio_button_default=0x7f080015;
         public static int radio_group_default=0x7f080016;
         public static int spinner_default=0x7f080014;

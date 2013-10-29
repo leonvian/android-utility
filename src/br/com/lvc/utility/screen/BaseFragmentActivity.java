@@ -209,6 +209,15 @@ public class BaseFragmentActivity extends FragmentActivity {
 	protected void showMessageToastShort(int message) {
 		ScreenManager.getInstance().showMessageToastShort(this, message);
 	}
+	
+	protected void showMessageToastLong(String message) {
+		ScreenManager.getInstance().showMessageToastLong(this, message);
+	}
+
+	protected void showMessageToastShort(String message) {
+		ScreenManager.getInstance().showMessageToastShort(this, message);
+	}
+
 
 	protected void showMessageAttentionYesNo(int message, DialogInterface.OnClickListener yesEvent) {
 		ScreenManager.getInstance().showDialogYesNo(R.string.attention, message, this,yesEvent, null,ScreenManager.MSG_ATTENTION);

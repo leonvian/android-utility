@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import br.com.lvc.utility.BaseApplicationUI;
 import br.com.lvc.utility.R;
 import br.com.lvc.utility.connection.ConnectionUtil;
@@ -236,9 +237,7 @@ public abstract class BaseActivity extends Activity {
 
 	protected void showMessageWithOptionsYesAndNo(String message, DialogInterface.OnClickListener eventYes, DialogInterface.OnClickListener eventNo) {
 		ScreenManager.getInstance().showDialogYesNo(R.string.attention, message, this, eventYes, eventNo, ScreenManager.MSG_ATTENTION);
-	}
-
-
+	} 
 
 	protected Bundle getBundleFromApplication() {
 		return ScreenManager.getInstance().getBundleFromApplication(this);
@@ -268,6 +267,17 @@ public abstract class BaseActivity extends Activity {
 		ScreenManager.getInstance().loadNextScreenByApplication(this,nextScreen,bundle,requestCode);
 	}
 
+	protected void putErrorMessengerObrigatoryField(TextView... editTexts) { 
+		ScreenManager.getInstance().putErrorMessengerObrigatoryField(this, editTexts);
+	}
+
+	protected boolean isFieldsFilleds(TextView... editTexts) {
+		return ScreenManager.getInstance().isFieldsFilleds(editTexts);
+	}
+	
+	protected boolean isFieldFilled(TextView editText) {
+		return ScreenManager.getInstance().isFieldFilled(editText);
+	}
 
 
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -286,7 +296,6 @@ public abstract class BaseActivity extends Activity {
 	public void dismissKeyboard(EditText editText) {
 		ScreenManager.getInstance().dismissKeyboard(this, editText);
 	}
-
 
 	public void makeAPhoneCall(String phone) {
 		PhoneUtil.makeAPhoneCall(phone, this);
