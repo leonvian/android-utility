@@ -1,13 +1,17 @@
 package br.com.lvc.utility.connection;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.message.BasicHeader;
 
 import android.util.Log;
 
 public abstract class WebServiceComun {
-
-	protected SynchronousHttpConnection synchronousHttpConnection = new SynchronousHttpConnection();
-
+	 
+	protected SynchronousHttpConnection synchronousHttpConnection = null;
+	
+	public WebServiceComun() {
+		synchronousHttpConnection = new SynchronousHttpConnection(getHeaders());
+	}
 
 	public  void sendDataPOST(String url,String passable) throws  HttpConnectionException {
 		String json = passable;
@@ -88,7 +92,6 @@ public abstract class WebServiceComun {
 		return response;
 	}
  
-
 	public  HttpResponse sendDataPUTHttpResponseAsReturn(String url,Passable passable) throws HttpConnectionException {
 		String json = DataSerializer.getInstance().toJson(passable);
 		HttpResponse response = synchronousHttpConnection.putHttpResponseAsReturn(url, json);
@@ -99,5 +102,15 @@ public abstract class WebServiceComun {
 		HttpResponse response = synchronousHttpConnection.executeGetHTTPLongerHttpResponseAsReturn(url);
 		return response;
 	}
-
+	
+	
+	
+	public BasicHeader[] getHeaders() {
+		BasicHeader[] headers = {
+			//	new BasicHeader("Content-type", "application/json"),
+				new BasicHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8")
+		};
+		
+		return headers; 
+	}
 }

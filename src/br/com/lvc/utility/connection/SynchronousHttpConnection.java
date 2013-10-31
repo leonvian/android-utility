@@ -1,6 +1,7 @@
 package br.com.lvc.utility.connection;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -9,6 +10,7 @@ import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.BufferedHttpEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -37,8 +39,20 @@ public class SynchronousHttpConnection {
 	private static final int POST = 1;
 	private static final int PUT = 2;
 	private static final int DELETE = 3;
+	
+	BasicHeader[] commonsHeaders = {
+			new BasicHeader("Content-type", "application/json")
+	};
 
-	public SynchronousHttpConnection() {				
+	
+	private BasicHeader[] headers;
+
+	public SynchronousHttpConnection() {
+		this.headers = commonsHeaders;
+	}
+
+	public SynchronousHttpConnection(BasicHeader[] headers) {
+		this.headers = headers;
 	}
 
 	public String get(String url) throws HttpConnectionException  {
@@ -60,9 +74,7 @@ public class SynchronousHttpConnection {
 	public String delete(String url) throws HttpConnectionException  {
 		return executeHTTPConnection(DELETE, url, null);
 	}
-	
- 
-
+	 
 	public HttpResponse getHttpResponseAsReturn(String url) throws HttpConnectionException  {
 		return executeHTTPConnectionGetResponse(GET, url, null,TIME_OUT_DEFAULT);
 	}
@@ -115,26 +127,20 @@ public class SynchronousHttpConnection {
 			HttpConnectionParams.setSoTimeout(httpClient.getParams(), timeOut);
 
 			switch (method) {
-			case GET:
-
-				//  url =	URLEncoder.encode(url, "UTF-8");
-				//	url = convertURL(url);
+			case GET: 
 				HttpGet httpGet = new HttpGet(url);
-				//	httpGet.addHeader(new BasicHeader("Content-Type", "text/plain; charset=utf-8"));
+				addHeaders(httpGet);
 				response = httpClient.execute(httpGet);
 				break;
 			case POST:
 				HttpPost httpPost = new HttpPost(url);
-				//httpPost.addHeader(new BasicHeader("Content-type", "application/json; charset=utf-8"));
-				httpPost.addHeader(new BasicHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8"));
-				//httpPost.addHeader(new BasicHeader("Content-type", "application/json"));
-				//httpPost.addHeader(new BasicHeader("Content-Type", "text/plain; charset=utf-8"));
+				addHeaders(httpPost);
 				httpPost.setEntity(new StringEntity(data,HTTP.UTF_8));
 				response = httpClient.execute(httpPost);
 				break;
 			case PUT:
 				HttpPut httpPut = new HttpPut(url);
-				httpPut.addHeader(new BasicHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8"));
+				addHeaders(httpPut);
 				httpPut.setEntity(new StringEntity(data));
 				response = httpClient.execute(httpPut);
 				break;
@@ -152,6 +158,17 @@ public class SynchronousHttpConnection {
 		}
 
 		return response;
+	}
+	
+	//httpPost.addHeader(new BasicHeader("Content-type", "application/json; charset=utf-8"));
+//	httpPost.addHeader(new BasicHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8"));
+	//httpPost.addHeader(new BasicHeader("Content-type", "application/json"));
+	//httpPost.addHeader(new BasicHeader("Content-Type", "text/plain; charset=utf-8"));
+	
+	private void addHeaders(HttpRequestBase httpRequestBase) {
+		for(BasicHeader header : headers) {
+			httpRequestBase.addHeader(header);
+		} 
 	}
 	 
 	private Bitmap executeHTTPConnectionBitmap(String url) throws IllegalStateException, IOException {
