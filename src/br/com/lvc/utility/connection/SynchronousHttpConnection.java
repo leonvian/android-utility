@@ -1,7 +1,6 @@
 package br.com.lvc.utility.connection;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -19,18 +18,18 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
-import br.com.lvc.utility.R;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import br.com.lvc.utility.R;
 
 
 public class SynchronousHttpConnection {
+ 
+	public static final int TIME_OUT_DEFAULT = 60000;
+	 
 
-
-	private static final int TIME_OUT_DEFAULT = 30000;
-	private static final int TIME_OUT_LONGER = 60000;
-
+	private int timeOut = TIME_OUT_DEFAULT;
+	
 	public static final int DID_START = 0;
 	public static final int DID_ERROR = 1;
 	public static final int DID_SUCCEED = 2;
@@ -54,13 +53,18 @@ public class SynchronousHttpConnection {
 	public SynchronousHttpConnection(BasicHeader[] headers) {
 		this.headers = headers;
 	}
+	
+	public SynchronousHttpConnection(int timeOut,BasicHeader[] headers) {
+		this.headers = headers;
+		this.timeOut = timeOut;
+	}
 
 	public String get(String url) throws HttpConnectionException  {
 		return executeHTTPConnection(GET, url, null);
 	}
 
 	public String executeGetHTTPLonger(String url) throws HttpConnectionException  {
-		return executeHTTPConnection(GET, url, null,TIME_OUT_LONGER);
+		return executeHTTPConnection(GET, url, null,timeOut);
 	}
 
 	public String post(String url, String data) throws HttpConnectionException  {
@@ -76,23 +80,23 @@ public class SynchronousHttpConnection {
 	}
 	 
 	public HttpResponse getHttpResponseAsReturn(String url) throws HttpConnectionException  {
-		return executeHTTPConnectionGetResponse(GET, url, null,TIME_OUT_DEFAULT);
+		return executeHTTPConnectionGetResponse(GET, url, null,timeOut);
 	}
 
 	public HttpResponse executeGetHTTPLongerHttpResponseAsReturn(String url) throws HttpConnectionException  {
-		return executeHTTPConnectionGetResponse(GET, url, null,TIME_OUT_LONGER);
+		return executeHTTPConnectionGetResponse(GET, url, null,timeOut);
 	}
 
 	public HttpResponse postHttpResponseAsReturn(String url, String data) throws HttpConnectionException  {
-		return executeHTTPConnectionGetResponse(POST, url, data,TIME_OUT_LONGER);
+		return executeHTTPConnectionGetResponse(POST, url, data,timeOut);
 	}
  
 	public HttpResponse putHttpResponseAsReturn(String url, String data) throws HttpConnectionException  {
-		return executeHTTPConnectionGetResponse(PUT, url, data,TIME_OUT_LONGER);
+		return executeHTTPConnectionGetResponse(PUT, url, data,timeOut);
 	}
 
 	public HttpResponse deleteHttpResponseAsReturn(String url) throws HttpConnectionException  {
-		return executeHTTPConnectionGetResponse(DELETE, url, null,TIME_OUT_LONGER);
+		return executeHTTPConnectionGetResponse(DELETE, url, null,timeOut);
 	}
 	
 	 
@@ -101,11 +105,11 @@ public class SynchronousHttpConnection {
 	}
 	
 	public String postLongTimeOut(String url, String data) throws HttpConnectionException  {
-		return executeHTTPConnection(POST, url, data, TIME_OUT_LONGER);
+		return executeHTTPConnection(POST, url, data, timeOut);
 	}
 
 	private String executeHTTPConnection(int method, String url, String data) throws  HttpConnectionException {
-		String result = executeHTTPConnection(method, url, data, TIME_OUT_DEFAULT);
+		String result = executeHTTPConnection(method, url, data, timeOut);
 		return result;
 	}
 	
@@ -173,7 +177,7 @@ public class SynchronousHttpConnection {
 	 
 	private Bitmap executeHTTPConnectionBitmap(String url) throws IllegalStateException, IOException {
 		HttpClient httpClient = new DefaultHttpClient();
-		HttpConnectionParams.setSoTimeout(httpClient.getParams(), TIME_OUT_LONGER);
+		HttpConnectionParams.setSoTimeout(httpClient.getParams(), timeOut);
 		HttpResponse response = httpClient.execute(new HttpGet(url));		
 		return processBitmapEntity(response.getEntity());
 	}

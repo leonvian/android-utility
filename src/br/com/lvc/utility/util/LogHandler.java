@@ -12,13 +12,13 @@ public class LogHandler {
 
 	public static void log(String log) {
 		if(showLogDebug) {
-			Log.d("SIF", log);
+			Log.d("LOG", log);
 		}
 	}
 
 	public static void logWarn(String log) {
 		if(showLogWarn) {
-			Log.w("SIF", log);
+			Log.w("LOG", log);
 		}
 	}	
 
@@ -36,19 +36,19 @@ public class LogHandler {
 
 	public static void logLogin(String log) {
 		if(showLogInfo) {
-			Log.i("LOGIN", log);
+			Log.i("LOG", log);
 		}
 	}	
 
 	public static void logSinc(String log) {
 		if(showLogInfo) {
-			Log.i("SINC", log);
+			Log.i("LOG", log);
 		}
 	}
 
 	public static void logErro(String log) {
 		if(showLogError) {
-			Log.e("SIF", log);
+			Log.e("LOG", log);
 		}
 	}	
 

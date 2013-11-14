@@ -10,7 +10,7 @@ public abstract class WebServiceComun {
 	protected SynchronousHttpConnection synchronousHttpConnection = null;
 	
 	public WebServiceComun() {
-		synchronousHttpConnection = new SynchronousHttpConnection(getHeaders());
+		synchronousHttpConnection = new SynchronousHttpConnection(getTimeOut(),getHeaders());
 	}
 
 	public  void sendDataPOST(String url,String passable) throws  HttpConnectionException {
@@ -40,6 +40,7 @@ public abstract class WebServiceComun {
 
 		return t;
 	}
+ 
 
 	public  <T> T sendDataPOST(String url,String passable, Class<T> targetClass) throws  HttpConnectionException {
 		String json = passable;
@@ -103,7 +104,9 @@ public abstract class WebServiceComun {
 		return response;
 	}
 	
-	
+	public int getTimeOut() {
+		return SynchronousHttpConnection.TIME_OUT_DEFAULT;
+	}
 	
 	public BasicHeader[] getHeaders() {
 		BasicHeader[] headers = {
