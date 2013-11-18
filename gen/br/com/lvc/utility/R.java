@@ -471,7 +471,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:title
+          @attr name br.com.lvc.utility:title
         */
         public static final int ActionBar_title = 0;
     };
