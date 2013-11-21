@@ -11,7 +11,6 @@
     <string name="este_campo_e_obrigatorio">This is a obrigatory field.</string>
     <string name="no_name">""</string>
     <string name="hello">Hello World!</string>
-    <string name="app_name">AndroidUtility</string>
     <string name="attention">Attention</string>
     <string name="wait">wait...</string>
     <string name="empty"> </string>
@@ -21,7 +20,7 @@
     <string name="no">No</string>
     <string name="options">Options</string>
     <string name="processing">Processing</string>
-    <string name="sucess">Sucess</string>
+    <string name="sucess">Success</string>
     <string name="error">Error</string>
     <string name="clean">Clean</string>
     <string name="register_not_found">Register(s) not found.</string>
