@@ -1,13 +1,8 @@
 package br.com.lvc.utility.connection;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
 
 public class ConnectionUtil {
 

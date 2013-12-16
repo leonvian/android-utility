@@ -4,20 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 
 public abstract class BaseCustomAdapter<T>  extends ArrayAdapter<T>  {
-
+	
 	protected GenericFilter filter;
 	protected Activity activity;
 	protected List<T> data;
 	protected List<T> dataComplete;
-	
+		
 	public BaseCustomAdapter(Activity a, List<T> d) {
 		super(a, 0, d);
 		activity = a;
 		data = d;
+		dataComplete = new ArrayList<T>(data);
+	}
+
+	public BaseCustomAdapter(Context context, int resource, List<T> objects) {
+		super(context, resource, objects);
+		data = objects;
 		dataComplete = new ArrayList<T>(data);
 	}
 
@@ -29,8 +36,6 @@ public abstract class BaseCustomAdapter<T>  extends ArrayAdapter<T>  {
 		
 		return filter;
 	}
-	
-	 
 	
 	protected class GenericFilter extends Filter {
 
@@ -79,5 +84,4 @@ public abstract class BaseCustomAdapter<T>  extends ArrayAdapter<T>  {
 
 		}
 	}
-
 }
