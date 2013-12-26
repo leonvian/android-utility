@@ -3,24 +3,27 @@ package br.com.lvc.utility.connection;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
-
 import br.com.lvc.utility.R;
 
-public class DataSerializer {
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+public class DataSerializer {
+	
+	 
 	ObjectMapper objectMapper = null;
 
 	private static  DataSerializer instance = null;
+	
+	private static final String FORMAT_DATE = "yyyy-MM-dd HH:mm a z";
 
 
 	private DataSerializer() {
 		objectMapper = new ObjectMapper();
-		objectMapper.configure(org.codehaus.jackson.map.DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		objectMapper.setSerializationInclusion(Inclusion.NON_NULL);
-		
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm a z");
+		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		objectMapper.setSerializationInclusion(Include.NON_NULL);  
+		DateFormat df = new SimpleDateFormat(FORMAT_DATE);
 		objectMapper.setDateFormat(df);
 	}
 
