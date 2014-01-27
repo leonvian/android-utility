@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/SmartReminderLinearLayout"
+    android:layout_gravity="center"
+    android:background="@color/White" >
+
+    <ImageView
+        style="@style/SmartReminderImageView"
+        android:src="@drawable/ok" />
+
+    <br.com.primesystems.osmobile.ui.TextViewDroidSans
+        android:id="@+id/text_view_smart_reminder"
+        style="@style/SmartReminderTextViewDroidSans"
+        android:textColor="@color/text_gray"
+        android:textSize="18sp" />
+
+</LinearLayout>

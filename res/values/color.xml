@@ -144,6 +144,11 @@
     <color name="Navy">#000080</color>
     <color name="Black">#000000</color>
     
+      <color name="buttonTextColor">#FFFFFF</color>
+    <color name="buttonTextShadowColor">#000000</color>
+    <color name="text_gray">#54534f</color>
+    
+    
     <color name="transparent_black_especial">#50000000</color>
     <color name="transparent_white_especial">#8fffffff</color>
     <!-- 

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/button_branco_hover" android:state_selected="true"/>
+    <item android:drawable="@drawable/button_branco_hover" android:state_pressed="true"/>
+    <item android:drawable="@drawable/button_branco_hover" android:state_checked="true"/>
+    <item android:drawable="@drawable/button_branco_hover" android:state_enabled="false"/>
+    <item android:drawable="@drawable/button_branco_normal"/>
+
+</selector>
+    -->
+
+    <item android:state_pressed="true" ><shape>
+        
+            <solid android:color="#f79928" />
+
+            <stroke android:width="1dp" android:color="#dedede" />
+
+            <corners android:radius="3dp" />
+
+            <padding android:bottom="10dp" android:left="10dp" android:right="10dp" android:top="10dp" />
+        </shape></item>
+    <item><shape>
+        <!-- #f79928 #f9c667 old colors-->
+            <gradient android:angle="270" android:endColor="#333333" android:startColor="#666666" />
+
+            <stroke android:width="1dp" android:color="#dedede" />
+
+            <corners android:radius="8dp" />
+
+            <padding android:bottom="10dp" android:left="10dp" android:right="10dp" android:top="10dp" />
+        </shape></item>
+
+</selector>
