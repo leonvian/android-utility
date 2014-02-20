@@ -10,16 +10,16 @@ public class EditTextDroidSans  extends EditText{
 
 	public EditTextDroidSans(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		FontUtil.colocarFonteBotao(context, this);
+		FontUtil.putFontOnView(context, this);
 	}
 	
 	public EditTextDroidSans(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		FontUtil.colocarFonteBotao(context, this);
+		FontUtil.putFontOnView(context, this);
 	}
 	
 	public EditTextDroidSans(Context context) {
 		super(context);
-		FontUtil.colocarFonteBotao(context, this);
+		FontUtil.putFontOnView(context, this);
 	}
 }

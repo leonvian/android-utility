@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.com.lvc.utility.R;
+import br.com.lvc.utility.util.FontUtil;
 
 public class SmartReminderUtil {
 

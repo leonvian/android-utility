@@ -8,7 +8,7 @@
             style="@style/SmartReminderImageView"
             android:src="@drawable/alert" />
 
-    <br.com.primesystems.osmobile.ui.TextViewDroidSans
+    <br.com.lvc.utility.screen.component.TextViewDroidSans 
             android:id="@+id/text_view_smart_reminder"
             style="@style/SmartReminderTextViewDroidSans"
             android:textColor="@android:color/white"

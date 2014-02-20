@@ -5,7 +5,7 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-//com.lvc.bolaopedrao.TextViewBolao
+//br.com.lvc.utility.screen.component.TextViewDroidSans
 public class TextViewDroidSans  extends TextView {
 
 	private static final String FONT_PATH = "fonts/DroidSans.ttf";//"fonts/Face Your Fears.ttf";
