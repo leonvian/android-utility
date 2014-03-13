@@ -24,6 +24,21 @@
         android:layout_marginTop="2dp"
         layout="@layout/smart_reminder_sucess_question"
         android:visibility="gone" />
+    
+    <include
+        android:id="@+id/smart_reminder_alert_with_confirmation"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        layout="@layout/smart_reminder_alert_with_confirmation"
+        android:visibility="gone" />
+    
+    
+    <include
+        android:id="@+id/smart_reminder_sucess_with_confirmation"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        layout="@layout/smart_reminder_sucess_with_confirmation"
+        android:visibility="gone" />
          
 
 </LinearLayout>

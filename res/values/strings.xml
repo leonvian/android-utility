@@ -40,6 +40,7 @@
     
     <string name="falha_conectar_servidor">Falha ao conectar com o servidor.</string>
    <string name="dispositivo_desconectado">Dispositivo desconectado.</string>
+   <string name="dismiss">Dispensar</string>
     
     <string-array name="list_action_menu">
         <item>Selecionar</item>
