@@ -55,12 +55,28 @@ public class SmartReminderUtil {
 		showSmartReminder(activity, SHORT_PERIOD, TYPE_ALERT_WITH_CONFIRMATION, message,null, null, confirmationEvent);
 	}
 	
+	public static void showSmartReminderSucessWithConfirmation(Activity activity, String message) {
+		showSmartReminder(activity, SHORT_PERIOD, TYPE_SUCESS_WITH_CONFIRMATION, message,null, null,null);
+	}
+	
+	public static void showSmartReminderAlertWithConfirmation(Activity activity, String message) {
+		showSmartReminder(activity, SHORT_PERIOD, TYPE_ALERT_WITH_CONFIRMATION, message,null, null, null);
+	}
+	
 	public static void showSmartReminderSucessWithConfirmation(Activity activity, int message, SmartReminderClickListener confirmationEvent) {
 		showSmartReminder(activity, SHORT_PERIOD, TYPE_SUCESS_WITH_CONFIRMATION, message,null, null,confirmationEvent);
 	}
 	
 	public static void showSmartReminderAlertWithConfirmation(Activity activity, int message, SmartReminderClickListener confirmationEvent) {
 		showSmartReminder(activity, SHORT_PERIOD, TYPE_ALERT_WITH_CONFIRMATION, message,null, null, confirmationEvent);
+	}
+	
+	public static void showSmartReminderSucessWithConfirmation(Activity activity, int message) {
+		showSmartReminder(activity, SHORT_PERIOD, TYPE_SUCESS_WITH_CONFIRMATION, message,null, null,null);
+	}
+	
+	public static void showSmartReminderAlertWithConfirmation(Activity activity, int message) {
+		showSmartReminder(activity, SHORT_PERIOD, TYPE_ALERT_WITH_CONFIRMATION, message,null, null, null);
 	}
 
 	public static void showSmartReminderAlertYesNo(Activity activity, String message, SmartReminderClickListener yesEvent, SmartReminderClickListener noEvent) {
