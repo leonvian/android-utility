@@ -129,7 +129,7 @@ public class SmartReminderUtil {
 			
 			smartReminderView.setVisibility(View.VISIBLE);
 
-			if(type != TYPE_SUCESS_YES_NO) {
+			if(type == TYPE_SUCESS || type == TYPE_ALERT) {
 				handler.postDelayed(new Runnable() {
 
 					@Override
