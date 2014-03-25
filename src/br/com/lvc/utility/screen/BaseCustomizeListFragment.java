@@ -10,7 +10,9 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ListFragment;
+import android.text.Editable;
 import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,12 +53,17 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,	Bundle savedInstanceState) {
-		View view = inflater.inflate(layoutID(), null);
+		View view = inflateView(inflater, container, savedInstanceState);
 		configureActionBar(view);
 		listView = (ListView) view.findViewById(android.R.id.list);
 		buildList();
 		removeActionBar(view);
 		return  view;
+	}
+	
+	public View inflateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View view = inflater.inflate(layoutID(), null);
+		return view;
 	}
 
 	public void removeActionBar(View viewMain) {
@@ -438,6 +445,32 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 			e.printStackTrace();
 		}
 
+	}
+	
+
+	protected TextWatcher getTextWatcher() {
+		TextWatcher textWatcher = new TextWatcher() {
+
+			@Override
+			public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+				try {
+					adapter.getFilter().filter(cs);	
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) { 
+			}
+
+			@Override
+			public void afterTextChanged(Editable arg0) {
+			}
+		};
+
+		return textWatcher;
 	}
 
 }
