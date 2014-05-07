@@ -16,16 +16,31 @@ public class DataSerializer {
 
 	private static  DataSerializer instance = null;
 	
-	private static final String FORMAT_DATE = "yyyy-MM-dd HH:mm a z";
+	public static final String DEFAULT_FORMAT_DATE = "yyyy-MM-dd HH:mm a z";
 
 
-	private DataSerializer() {
+	private DataSerializer(DataSerializerMapperConfiguration dataSerializerMapperConfiguration) {
 		objectMapper = new ObjectMapper();
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		objectMapper.setSerializationInclusion(Include.NON_NULL);  
-		DateFormat df = new SimpleDateFormat(FORMAT_DATE);
+		
+		DateFormat df = new SimpleDateFormat(dataSerializerMapperConfiguration.getFormatDate());
 		objectMapper.setDateFormat(df);
 	}
+	
+	
+	private DataSerializer() {
+		this(new DataSerializerMapperConfiguration(DEFAULT_FORMAT_DATE));
+	}
+	
+	public static DataSerializer getInstance(DataSerializerMapperConfiguration dataSerializerMapperConfiguration) {
+		if(instance == null) {
+			instance = new DataSerializer(dataSerializerMapperConfiguration);
+		}
+
+		return instance;
+	}
+
 
 
 	public static DataSerializer getInstance() {
