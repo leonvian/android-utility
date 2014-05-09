@@ -16,12 +16,24 @@ public abstract class WebServiceComun {
 		
 	}
 
-	public  void sendDataPOST(String url,String passable) throws  HttpConnectionException {
+	public String sendDataPOST(String url,String passable) throws  HttpConnectionException {
 		String json = passable;
 		Log.i("Dados enviados", json);
 
 		String response = synchronousHttpConnection.post(url, json);
 		Log.i("Resposta Servidor", response);
+		
+		return response;
+	}
+	
+	public  String sendDataPOST(String url,String passable,BasicHeader[] headers) throws  HttpConnectionException {
+		String json = passable;
+		Log.i("Dados enviados", json);
+
+		String response = synchronousHttpConnection.post(url, json, headers);
+		Log.i("Resposta Servidor", response);
+		
+		return response;
 	}
 
 	public  <T> T sendDataGet(String url, Class<T> targetClass) throws HttpConnectionException {
@@ -31,10 +43,9 @@ public abstract class WebServiceComun {
 
 		return t;
 	}
-	
-	
+	 
 
-	public  <T> T sendDataPOST(String url,Passable passable, Class<T> targetClass) throws  HttpConnectionException {
+	public  <T> T sendDataPOST(String url,Object passable, Class<T> targetClass) throws  HttpConnectionException {
 		String json = getSerializer().toJson(passable);
 		Log.i("Dados enviados", json);
 
@@ -59,7 +70,7 @@ public abstract class WebServiceComun {
 		return t;
 	} 
 
-	public  <T> T sendDataPUT(String url,Passable passable, Class<T> targetClass) throws HttpConnectionException {
+	public  <T> T sendDataPUT(String url,Object passable, Class<T> targetClass) throws HttpConnectionException {
 		String response = null;
 
 		String json = getSerializer().toJson(passable);
@@ -90,7 +101,7 @@ public abstract class WebServiceComun {
 		return response;
 	}
 
-	public  HttpResponse sendDataPOSTHttpResponseAsReturn(String url,Passable passable) throws  HttpConnectionException {
+	public  HttpResponse sendDataPOSTHttpResponseAsReturn(String url,Object passable) throws  HttpConnectionException {
 		String json = DataSerializer.getInstance().toJson(passable);
 		Log.i("Dados enviados", json);
 
@@ -98,7 +109,7 @@ public abstract class WebServiceComun {
 		return response;
 	}
  
-	public  HttpResponse sendDataPUTHttpResponseAsReturn(String url,Passable passable) throws HttpConnectionException {
+	public  HttpResponse sendDataPUTHttpResponseAsReturn(String url,Object passable) throws HttpConnectionException {
 		String json = DataSerializer.getInstance().toJson(passable);
 		HttpResponse response = synchronousHttpConnection.putHttpResponseAsReturn(url, json);
 		return response;		

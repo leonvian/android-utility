@@ -70,6 +70,10 @@ public class SynchronousHttpConnection {
 	public String post(String url, String data) throws HttpConnectionException  {
 		return executeHTTPConnection(POST, url, data);
 	}
+	
+	public String post(String url, String data, BasicHeader[] headers) throws HttpConnectionException  {
+		return executeHTTPConnection(POST, url, data, timeOut, headers);
+	}
  
 	public String put(String url, String data) throws HttpConnectionException  {
 		return executeHTTPConnection(PUT, url, data);
@@ -80,26 +84,25 @@ public class SynchronousHttpConnection {
 	}
 	 
 	public HttpResponse getHttpResponseAsReturn(String url) throws HttpConnectionException  {
-		return executeHTTPConnectionGetResponse(GET, url, null,timeOut);
+		return executeHTTPConnectionGetResponse(GET, url, null,timeOut, null);
 	}
 
 	public HttpResponse executeGetHTTPLongerHttpResponseAsReturn(String url) throws HttpConnectionException  {
-		return executeHTTPConnectionGetResponse(GET, url, null,timeOut);
+		return executeHTTPConnectionGetResponse(GET, url, null,timeOut, null);
 	}
 
 	public HttpResponse postHttpResponseAsReturn(String url, String data) throws HttpConnectionException  {
-		return executeHTTPConnectionGetResponse(POST, url, data,timeOut);
+		return executeHTTPConnectionGetResponse(POST, url, data,timeOut, null);
 	}
  
 	public HttpResponse putHttpResponseAsReturn(String url, String data) throws HttpConnectionException  {
-		return executeHTTPConnectionGetResponse(PUT, url, data,timeOut);
+		return executeHTTPConnectionGetResponse(PUT, url, data,timeOut, null);
 	}
 
 	public HttpResponse deleteHttpResponseAsReturn(String url) throws HttpConnectionException  {
-		return executeHTTPConnectionGetResponse(DELETE, url, null,timeOut);
+		return executeHTTPConnectionGetResponse(DELETE, url, null,timeOut, null);
 	}
 	
-	 
 	public Bitmap bitmap(String url) throws IllegalStateException, IOException {
 		return executeHTTPConnectionBitmap(url);
 	}
@@ -114,8 +117,12 @@ public class SynchronousHttpConnection {
 	}
 	
 	private String executeHTTPConnection(int method, String url, String data, int timeOut) throws  HttpConnectionException {
+		return executeHTTPConnection(method,url,data,timeOut,null);
+	}
+	
+	private String executeHTTPConnection(int method, String url, String data, int timeOut,BasicHeader[] customHeaders) throws  HttpConnectionException {
 		try {
-			HttpResponse response =	executeHTTPConnectionGetResponse(method, url, data, timeOut);
+			HttpResponse response =	executeHTTPConnectionGetResponse(method, url, data, timeOut, customHeaders);
 			
 			return processResponse(response.getEntity());
 		} catch (Exception e) {
@@ -123,38 +130,43 @@ public class SynchronousHttpConnection {
 			throw new HttpConnectionException(R.string.falha_conectar_servidor , e);
 		}
 	}
-
-	private HttpResponse executeHTTPConnectionGetResponse(int method, String url, String data, int timeOut) throws  HttpConnectionException {
+	
+	private HttpResponse executeHTTPConnectionGetResponse(int method, String url, String data, int timeOut, BasicHeader[] customHeaders) throws  HttpConnectionException {
+		
 		HttpResponse response = null; 
+		
 		try { 
 			HttpClient httpClient = new DefaultHttpClient();
 			HttpConnectionParams.setSoTimeout(httpClient.getParams(), timeOut);
+			
+			HttpRequestBase httpRequestBase = null;
 
 			switch (method) {
 			case GET: 
-				HttpGet httpGet = new HttpGet(url);
-				addHeaders(httpGet);
-				response = httpClient.execute(httpGet);
+				httpRequestBase = new HttpGet(url);
 				break;
+				
 			case POST:
-				HttpPost httpPost = new HttpPost(url);
-				addHeaders(httpPost);
-				httpPost.setEntity(new StringEntity(data,HTTP.UTF_8));
-				response = httpClient.execute(httpPost);
+				httpRequestBase = new HttpPost(url);
+				((HttpPost)httpRequestBase).setEntity(new StringEntity(data,HTTP.UTF_8));
 				break;
+				
 			case PUT:
-				HttpPut httpPut = new HttpPut(url);
-				addHeaders(httpPut);
-				httpPut.setEntity(new StringEntity(data));
-				response = httpClient.execute(httpPut);
+				httpRequestBase = new HttpPut(url);
+				((HttpPut)httpRequestBase).setEntity(new StringEntity(data));
 				break;
+				
 			case DELETE:
-				response = httpClient.execute(new HttpDelete(url));
+				httpRequestBase = new HttpDelete(url);
 				break;
+				
 			default:
 				throw new HttpConnectionException("Unknown Request.");
 			}  
 
+			
+			addHeaders(httpRequestBase, customHeaders);
+			response = 	httpClient.execute(httpRequestBase);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -162,15 +174,18 @@ public class SynchronousHttpConnection {
 		}
 
 		return response;
-	}
+	} 
 	
-	//httpPost.addHeader(new BasicHeader("Content-type", "application/json; charset=utf-8"));
-//	httpPost.addHeader(new BasicHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8"));
-	//httpPost.addHeader(new BasicHeader("Content-type", "application/json"));
-	//httpPost.addHeader(new BasicHeader("Content-Type", "text/plain; charset=utf-8"));
-	
-	private void addHeaders(HttpRequestBase httpRequestBase) {
-		for(BasicHeader header : headers) {
+	private void addHeaders(HttpRequestBase httpRequestBase, BasicHeader[] customHeaders) {
+		
+		BasicHeader[] headersToBeUsed = null;
+		
+		if(customHeaders != null)
+			headersToBeUsed = customHeaders;
+		else
+			headersToBeUsed = headers;
+		
+		for(BasicHeader header : headersToBeUsed) {
 			httpRequestBase.addHeader(header);
 		} 
 	}
