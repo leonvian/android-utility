@@ -16,7 +16,9 @@
 
 package com.markupartist.android.widget;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import com.markupartist.android.widget.actionbar.R;
 
@@ -48,6 +50,7 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
     private ImageButton mHomeBtn;
     private RelativeLayout mHomeLayout;
     private ProgressBar mProgress;
+    private List<Action> actions = new ArrayList<Action>();
 
     public ActionBar(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -182,13 +185,17 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
      * @param index the position at which to add the action
      */
     public void addAction(Action action, int index) {
-        mActionsView.addView(inflateAction(action), index);
+    	if(!actions.contains(action)) {
+    		mActionsView.addView(inflateAction(action), index);
+            actions.add(action);	
+    	}
     }
 
     /**
      * Removes all action views from this action bar
      */
     public void removeAllActions() {
+    	actions.clear();
         mActionsView.removeAllViews();
     }
 
@@ -212,6 +219,7 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
                 final Object tag = view.getTag();
                 if (tag instanceof Action && tag.equals(action)) {
                     mActionsView.removeView(view);
+                    actions.remove(action);
                 }
             }
         }
@@ -268,6 +276,30 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
         public int getDrawable() {
             return mDrawable;
         }
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + mDrawable;
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			AbstractAction other = (AbstractAction) obj;
+			if (mDrawable != other.mDrawable)
+				return false;
+			return true;
+		}
+        
+        
     }
 
     public static class IntentAction extends AbstractAction {
