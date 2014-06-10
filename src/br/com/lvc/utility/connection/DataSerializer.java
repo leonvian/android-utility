@@ -3,8 +3,6 @@ package br.com.lvc.utility.connection;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-import br.com.lvc.utility.R;
-
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -51,28 +49,19 @@ public class DataSerializer {
 		return instance;
 	}
 
-	public String toJson(Object content) throws HttpConnectionException {
+	public String toJson(Object content)   {
 		try {
 			return objectMapper.writeValueAsString(content);	
 		} catch(Exception e) {
-			throw new HttpConnectionException(R.string.falha_ao_serializar, e);
-		}
-
-	}
-
-	public  DataBundle toObject(String json) throws HttpConnectionException {
-		try {
-			return objectMapper.readValue(json, DataBundle.class);
-		} catch(Exception e) {
-			throw new HttpConnectionException(R.string.falha_ao_serializar, e);
+			throw new RuntimeException(e);
 		}
 	}
-
-	public<T>  T toObject(String json, Class targetClass) throws HttpConnectionException {
+ 
+	public<T>  T toObject(String json, Class targetClass)  {
 		try {
 			return (T) objectMapper.readValue(json, targetClass);	
 		} catch(Exception e) {
-			throw new HttpConnectionException(R.string.falha_ao_serializar, e);
+			throw new RuntimeException(e);
 		}
 	}
 

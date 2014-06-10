@@ -1,7 +1,6 @@
 package br.com.lvc.utility.screen;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -18,20 +17,16 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.lvc.utility.BaseApplicationUI;
 import br.com.lvc.utility.R;
 import br.com.lvc.utility.connection.ConnectionUtil;
-import br.com.lvc.utility.exceptions.EssentialFieldException;
 import br.com.lvc.utility.exceptions.IncorrectFieldsException;
 import br.com.lvc.utility.exceptions.InsufficientDataException;
 import br.com.lvc.utility.screen.annotation.FindViewByID;
-import br.com.lvc.utility.screen.annotation.Obrigatory;
 import br.com.lvc.utility.taskcontrol.SimpleTask;
 import br.com.lvc.utility.taskcontrol.TaskManager;
-import br.com.lvc.utility.util.ButtonsEffects;
 import br.com.lvc.utility.util.PhoneUtil;
 import br.com.lvc.utility.util.ProgressTask;
 import br.com.lvc.utility.util.ProgressTaskRunnable;
@@ -43,8 +38,7 @@ public abstract class BaseActivity extends Activity {
 	public static final int PROGRESS_DIALOG = 0;
 	private Handler handler = new Handler();
 	public static final int PROGRESS_DIALOG_ID = 10;
-
-	private List<ScreenView>  screenViews = new ArrayList<ScreenView>();
+ 
 
 	public  boolean isTablet() {
 		return ScreenManager.getInstance().isTablet(this);		 
@@ -83,12 +77,7 @@ public abstract class BaseActivity extends Activity {
 					View view = findViewById((int)id);
 					
 					field.setAccessible(true);
-					field.set(this, view);
-					
-					
-					boolean obrigatory = field.isAnnotationPresent(Obrigatory.class);
-					ScreenView screenView = new ScreenView(view, obrigatory);
-					screenViews.add(screenView);
+					field.set(this, view); 
 				}
 
 			}
@@ -109,26 +98,7 @@ public abstract class BaseActivity extends Activity {
 	protected InputFilter[] retrieveCaracterLimit(int limit) {
 		return ScreenManager.getInstance().retrieveCaracterLimit(limit);
 	}
-
-	protected void verifyEssentialFields(int message) throws EssentialFieldException {
-		List<View> viewsWrong = new ArrayList<View>();
-
-		for(ScreenView screenView : screenViews) {
-			View view =  screenView.getView();
-			if(view instanceof EditText) {
-				EditText editText = (EditText)view;
-				if(screenView.isObrigatory() && editText.getText().toString().length() == 0) {
-					viewsWrong.add(view);
-				}
-			}
-		}
-
-		if(!viewsWrong.isEmpty()) {
-			throw new EssentialFieldException(message, viewsWrong);
-		}
-
-	}
-
+ 
 	protected boolean verifyObrigatoryFields(int message, EditText... editTexts) {
 		return ScreenManager.getInstance().verifiedObrigatoryFields(this,message, editTexts);
 	}

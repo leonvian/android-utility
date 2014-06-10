@@ -4,6 +4,7 @@ package br.com.lvc.utility.taskcontrol;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.text.Html;
 import br.com.lvc.utility.R;
 import br.com.lvc.utility.exceptions.AndroidAppException;
 import br.com.lvc.utility.screen.component.MyProgressDialog;
@@ -81,7 +82,7 @@ public class TaskManager extends AsyncTask<Void, String, TaskResult>{
 	private void showProgressDialog() {
 		progressDialog = new MyProgressDialog(context);
 		progressDialog.setTitle(titleProgress);
-		progressDialog.setMessage(context.getString(messageProgress));
+		progressDialog.setMessage(Html.fromHtml(context.getString(messageProgress)));
 		progressDialog.setIndeterminate(true);
 		progressDialog.show();	  
 	}
