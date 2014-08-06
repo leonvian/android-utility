@@ -104,7 +104,7 @@ public abstract class BaseCustomizeListView<T, Z extends ArrayAdapter<T>>  exten
 	public void configureListViewProcessAfterTask() {
 		if(listView != null) {
 			adapter = newAdapter(elements);         
-			listView.setAdapter(adapter);
+			setAdapterOnListView();
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
@@ -124,6 +124,10 @@ public abstract class BaseCustomizeListView<T, Z extends ArrayAdapter<T>>  exten
 				}
 			});
 		}
+	}
+	
+	protected void setAdapterOnListView() {
+		listView.setAdapter(adapter);
 	}
 
 	public void onItemLongClickEvent(T selectedObject) {

@@ -18,7 +18,7 @@ public abstract class WebServiceComun {
 
 	public String sendDataPOST(String url,String passable) throws  HttpConnectionException {
 		String json = passable;
-		Log.i("Dados enviados", json);
+		Log.i("Dados enviados", "URL: " + url + " DADOS: " + json);
 
 		String response = synchronousHttpConnection.post(url, json);
 		Log.i("Resposta Servidor", response);
@@ -28,7 +28,7 @@ public abstract class WebServiceComun {
 	
 	public  String sendDataPOST(String url,String passable,BasicHeader[] headers) throws  HttpConnectionException {
 		String json = passable;
-		Log.i("Dados enviados", json);
+		Log.i("Dados enviados", "URL: " + url + " DADOS: " +json);
 
 		String response = synchronousHttpConnection.post(url, json, headers);
 		Log.i("Resposta Servidor", response);
@@ -47,7 +47,7 @@ public abstract class WebServiceComun {
 
 	public  <T> T sendDataPOST(String url,Object passable, Class<T> targetClass) throws  HttpConnectionException {
 		String json = getSerializer().toJson(passable);
-		Log.i("Dados enviados", json);
+		Log.i("Dados enviados","URL: " + url + " DADOS: " + json);
 
 		String response = synchronousHttpConnection.post(url, json);
 		Log.i("Resposta Servidor", response);
@@ -60,7 +60,7 @@ public abstract class WebServiceComun {
 
 	public  <T> T sendDataPOST(String url,String passable, Class<T> targetClass) throws  HttpConnectionException {
 		String json = passable;
-		Log.i("Dados enviados", json);
+		Log.i("Dados enviados", "URL: " + url + " DADOS: " +json);
 
 		String response = synchronousHttpConnection.post(url, json);
 		Log.i("Resposta Servidor", response);
@@ -74,7 +74,7 @@ public abstract class WebServiceComun {
 		String response = null;
 
 		String json = getSerializer().toJson(passable);
-		Log.i("Dados enviados", json);
+		Log.i("Dados enviados", "URL: " + url + " DADOS: " +json);
 
 		response = synchronousHttpConnection.put(url, json);
 		Log.i("Resposta Servidor", response); 
