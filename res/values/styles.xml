@@ -70,6 +70,10 @@
     <style name="ButtonColorRoxo" parent="@style/ButtonColorVerde">
         <item name="android:background">@drawable/button_roxo</item>
     </style>
+    
+      <style name="ButtonColorBlue" parent="@style/ButtonColorVerde">
+        <item name="android:background">@drawable/button_blue</item>
+    </style>
 
     <style name="ButtonColorCinza" parent="@style/ButtonColorVerde">
         <item name="android:background">@drawable/button_cinza</item>

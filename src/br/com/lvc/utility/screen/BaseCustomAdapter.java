@@ -3,17 +3,16 @@ package br.com.lvc.utility.screen;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.lvc.utility.R;
-import br.com.lvc.utility.taskcontrol.SimpleTask;
-import br.com.lvc.utility.taskcontrol.TaskManager;
-import br.com.lvc.utility.util.ProgressTask;
-import br.com.lvc.utility.util.ProgressTaskRunnable;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
+import br.com.lvc.utility.R;
+import br.com.lvc.utility.taskcontrol.SimpleTask;
+import br.com.lvc.utility.taskcontrol.TaskManager;
+import br.com.lvc.utility.util.ProgressTask;
+import br.com.lvc.utility.util.ProgressTaskRunnable;
 
 public abstract class BaseCustomAdapter<T>  extends ArrayAdapter<T>  {
 	

@@ -3,8 +3,6 @@ package br.com.lvc.utility.screen.annotation;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import android.text.InputType;
-
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EditTextConfig {
 

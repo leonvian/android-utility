@@ -2,6 +2,7 @@ package br.com.lvc.utility.screen;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -30,11 +31,7 @@ import br.com.lvc.utility.util.WebUTIL;
 
 public class FragmentBase extends Fragment {
 
-
-	
 	private Handler handler = new Handler();
-
-	private List<ScreenView>  screenViews = new ArrayList<ScreenView>();
 
 	public  boolean isTablet() {
 		return ScreenManager.getInstance().isTablet(getActivity());		 
@@ -59,25 +56,6 @@ public class FragmentBase extends Fragment {
 
 	protected InputFilter[] retrieveCaracterLimit(int limit) {
 		return ScreenManager.getInstance().retrieveCaracterLimit(limit);
-	}
-
-	protected void verifyEssentialFields(int message) throws EssentialFieldException {
-		List<View> viewsWrong = new ArrayList<View>();
-
-		for(ScreenView screenView : screenViews) {
-			View view =  screenView.getView();
-			if(view instanceof EditText) {
-				EditText editText = (EditText)view;
-				if(screenView.isObrigatory() && editText.getText().toString().length() == 0) {
-					viewsWrong.add(view);
-				}
-			}
-		}
-
-		if(!viewsWrong.isEmpty()) {
-			throw new EssentialFieldException(message, viewsWrong);
-		}
-
 	}
 
 	protected boolean verifyObrigatoryFields(int message, EditText... editTexts) {

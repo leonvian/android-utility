@@ -201,9 +201,8 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 	public abstract List<T> getListElements() throws AndroidAppException;
 
 
-	private Handler handler = new Handler();
-
-	private List<ScreenView>  screenViews = new ArrayList<ScreenView>();
+	private Handler handler = new Handler(); 
+ 
 
 	public  boolean isTablet() {
 		return ScreenManager.getInstance().isTablet(getActivity());		 
@@ -228,25 +227,6 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 
 	protected InputFilter[] retrieveCaracterLimit(int limit) {
 		return ScreenManager.getInstance().retrieveCaracterLimit(limit);
-	}
-
-	protected void verifyEssentialFields(int message) throws EssentialFieldException {
-		List<View> viewsWrong = new ArrayList<View>();
-
-		for(ScreenView screenView : screenViews) {
-			View view =  screenView.getView();
-			if(view instanceof EditText) {
-				EditText editText = (EditText)view;
-				if(screenView.isObrigatory() && editText.getText().toString().length() == 0) {
-					viewsWrong.add(view);
-				}
-			}
-		}
-
-		if(!viewsWrong.isEmpty()) {
-			throw new EssentialFieldException(message, viewsWrong);
-		}
-
 	}
 
 	protected boolean verifyObrigatoryFields(int message, EditText... editTexts) {

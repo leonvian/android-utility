@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -60,6 +61,14 @@ public class DataSerializer {
 	public<T>  T toObject(String json, Class targetClass)  {
 		try {
 			return (T) objectMapper.readValue(json, targetClass);	
+		} catch(Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public<T>  T toObject(String json, final TypeReference<T> type)  {
+		try {
+			return (T) objectMapper.readValue(json, type);	
 		} catch(Exception e) {
 			throw new RuntimeException(e);
 		}

@@ -1,9 +1,14 @@
 package br.com.lvc.utility.connection;
 
+import java.util.List;
+
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicHeader;
 
 import android.util.Log;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 
 public abstract class WebServiceComun {
 	 
@@ -16,6 +21,16 @@ public abstract class WebServiceComun {
 		
 	}
 
+	public String sendDataPOST(String url,List<NameValuePair> data) throws  HttpConnectionException {
+		 
+		Log.i("Dados enviados", "URL: " + url + " DADOS: " + data);
+
+		String response = synchronousHttpConnection.post(url, data);
+		Log.i("Resposta Servidor", response);
+		
+		return response;
+	}
+	
 	public String sendDataPOST(String url,String passable) throws  HttpConnectionException {
 		String json = passable;
 		Log.i("Dados enviados", "URL: " + url + " DADOS: " + json);
@@ -40,6 +55,14 @@ public abstract class WebServiceComun {
 		String response = synchronousHttpConnection.get(url);
 		Log.i("Resposta Servidor", response);
 		T t = getSerializer().toObject(response, targetClass);
+
+		return t;
+	}
+	
+	public  <T> T sendDataGet(String url, TypeReference<T> target) throws HttpConnectionException {
+		String response = synchronousHttpConnection.get(url);
+		Log.i("Resposta Servidor", response);
+		T t = getSerializer().toObject(response, target);
 
 		return t;
 	}

@@ -1,11 +1,11 @@
 package br.com.lvc.utility.screen;
 
-import br.com.lvc.utility.BaseApplicationUI;
-import br.com.lvc.utility.R;
 import android.app.TabActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.widget.TabHost;
+import br.com.lvc.utility.BaseApplicationUI;
+import br.com.lvc.utility.R;
 
 public class BaseTabActivity extends TabActivity {
 	
