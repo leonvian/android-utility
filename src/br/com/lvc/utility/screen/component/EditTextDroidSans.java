@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.widget.EditText;
 import br.com.lvc.utility.util.FontUtil;
 
-
+//br.com.lvc.utility.screen.component.EditTextDroidSans
 public class EditTextDroidSans  extends EditText{
 
 	public EditTextDroidSans(Context context, AttributeSet attrs, int defStyle) {

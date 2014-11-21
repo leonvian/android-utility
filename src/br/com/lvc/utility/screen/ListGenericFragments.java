@@ -34,17 +34,10 @@ public abstract class ListGenericFragments<T extends Serializable> extends ListF
 	protected T currentElement = null;
 	protected List<T> elements = null;	  
 	protected  ArrayAdapter<T> adapter = null;
-
-
-
+ 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-
-
-		//getActivity().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
-
 	}
 
 	protected void executeTask(SimpleTask task) {
@@ -56,14 +49,17 @@ public abstract class ListGenericFragments<T extends Serializable> extends ListF
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 		View view = inflater.inflate(idLayout(), null);
 		linearLayoutPrincipal = (LinearLayout)view.findViewById(R.id.linear_layout_main);
-		editTextfilterText = (EditText) view.findViewById(R.id.search_box);
+		editTextfilterText = getEditTextFilter(view);
 		SimpleTask simpleTask = getTaskLoadList();
 
 		executeTask(simpleTask);
 		return view;
 	}
-
-
+	
+	public EditText getEditTextFilter(View view) {
+		return (EditText) view.findViewById(R.id.search_box);
+	}
+	
 	public int idLayout() {
 		return R.layout.list_generic;
 	}

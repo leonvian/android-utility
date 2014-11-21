@@ -1,6 +1,5 @@
 package br.com.lvc.utility.screen;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -29,7 +28,6 @@ import br.com.lvc.utility.BaseApplicationUI;
 import br.com.lvc.utility.R;
 import br.com.lvc.utility.connection.ConnectionUtil;
 import br.com.lvc.utility.exceptions.AndroidAppException;
-import br.com.lvc.utility.exceptions.EssentialFieldException;
 import br.com.lvc.utility.exceptions.IncorrectFieldsException;
 import br.com.lvc.utility.exceptions.InsufficientDataException;
 import br.com.lvc.utility.taskcontrol.SimpleTask;
@@ -171,9 +169,11 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 			break;
 		}
 	}
+	
+	
 
 	private void showMessageInToastMode(AndroidAppException e) {
-		showMessageToastLong(e.getMessageFromResource());
+		Toast.makeText(getActivity(), e.getMessageFromResource(), Toast.LENGTH_LONG).show();
 	}
 
 	private void showMessageInDialogMode(AndroidAppException e) {
@@ -187,11 +187,7 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 		ScreenManager.getInstance().showDialog(R.string.error, e.getMessageFromResource(), getActivity(), event,ScreenManager.MSG_ERROR);	
 	}
 
-	private void showMessageToastLong(int message) {
-		Toast.makeText(getActivity(), getString(message), Toast.LENGTH_SHORT).show();
-	}
-
- 
+	
 	public void configureActionBar(ActionBar actionBar) { }
 
 	public abstract void onClick(T clickedElement);

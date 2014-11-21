@@ -63,8 +63,26 @@ public abstract class BaseCustomizeListView<T, Z extends ArrayAdapter<T>>  exten
 
 
 	public void buildList() {
-		SimpleTask simpleTask = getSimpleTask();
-		executeTask(simpleTask);
+		
+		if(willUseAsyncTask()) {
+			SimpleTask simpleTask = getSimpleTask();
+			executeTask(simpleTask);	
+		} else {
+			loadListWithouAsyncTask();
+		}
+		
+	}
+	
+	private void loadListWithouAsyncTask() {
+		try {
+			elements = getListElements();
+			configureListViewProcessAfterTask();
+		} catch (AndroidAppException e) {
+			if(elements != null) {
+				configureListViewProcessAfterTask();
+			}	
+			treatFailGeneral(e);
+		}	 
 	}
 
 	protected int layoutID() {
@@ -201,4 +219,9 @@ public abstract class BaseCustomizeListView<T, Z extends ArrayAdapter<T>>  exten
 	public abstract Z newAdapter(List<T> elements);
 
 	public abstract List<T> getListElements() throws AndroidAppException;
+	
+	
+	public boolean willUseAsyncTask() {
+		return true;
+	}
 }
