@@ -39,8 +39,6 @@ import br.com.lvc.utility.util.ProgressTaskRunnable;
 import br.com.lvc.utility.util.VideoUTIL;
 import br.com.lvc.utility.util.WebUTIL;
 
-import com.markupartist.android.widget.ActionBar;
-
 public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T>> extends ListFragment {
 
 
@@ -52,10 +50,10 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,	Bundle savedInstanceState) {
 		View view = inflateView(inflater, container, savedInstanceState);
-		configureActionBar(view);
+		//configureActionBar(view);
 		listView = (ListView) view.findViewById(android.R.id.list);
 		buildList();
-		removeActionBar(view);
+		//removeActionBar(view);
 		return  view;
 	}
 	
@@ -63,7 +61,7 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 		View view = inflater.inflate(layoutID(), null);
 		return view;
 	}
-
+/*
 	public void removeActionBar(View viewMain) {
 		View view = viewMain.findViewById(R.id.actionbar);
 		if(view != null)
@@ -78,7 +76,7 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 			configureActionBar(actionBar);	
 		} 
 	}
-
+*/
 
 	public void buildList() {
 		SimpleTask simpleTask = getSimpleTask();
@@ -188,7 +186,7 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 	}
 
 	
-	public void configureActionBar(ActionBar actionBar) { }
+//	public void configureActionBar(ActionBar actionBar) { }
 
 	public abstract void onClick(T clickedElement);
 

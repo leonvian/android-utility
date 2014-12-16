@@ -5,7 +5,7 @@ public abstract class BaseCustomizeListViewNoBar<T, Z extends BaseCustomAdapter<
 
 	@Override
 	protected void loadOnCreate() {
-		removeActionBar();
+	//	removeActionBar();
 		super.loadOnCreate();
 	}
 

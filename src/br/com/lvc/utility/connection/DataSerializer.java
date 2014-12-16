@@ -28,6 +28,12 @@ public class DataSerializer {
 	}
 	
 	
+	public void setDateFormat(DateFormat df) {
+		objectMapper.setDateFormat(df);
+	}
+
+	
+	
 	private DataSerializer() {
 		this(new DataSerializerMapperConfiguration(DEFAULT_FORMAT_DATE));
 	}

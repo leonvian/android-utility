@@ -15,8 +15,6 @@ import br.com.lvc.utility.exceptions.AndroidAppException;
 import br.com.lvc.utility.taskcontrol.SimpleTask;
 import br.com.lvc.utility.taskcontrol.TaskResult;
 
-import com.markupartist.android.widget.ActionBar;
-
 public abstract class BaseCustomizeListViewFragment<T, Z extends BaseCustomAdapter<T>>  extends BaseFragmentListActivity {
 
 	protected ListView listView;
@@ -29,22 +27,22 @@ public abstract class BaseCustomizeListViewFragment<T, Z extends BaseCustomAdapt
 		setContentView(layoutID());
 		loadOnCreate();
 	}
-
+/*
 	public void removeActionBar() {
 		View view = findViewById(R.id.actionbar);
 		if(view != null)
 			view.setVisibility(View.GONE);
 	}
-
+ */
 	/**
 	 * Primeiro método a ser acionado logo após setar o contentView.
 	 */
 	protected void loadOnCreate() {
 		listView = getListView();
-		configureActionBar();
+	//	configureActionBar();
 		buildList();
 	}
-
+/*
 	private void configureActionBar() {
 		View view = findViewById(R.id.actionbar);
 		if(view != null) {
@@ -52,7 +50,7 @@ public abstract class BaseCustomizeListViewFragment<T, Z extends BaseCustomAdapt
 			configureActionBar(actionBar);	
 		} 
 	}
-
+*/
 
 	public void buildList() {
 		SimpleTask simpleTask = getSimpleTask();
@@ -154,7 +152,7 @@ public abstract class BaseCustomizeListViewFragment<T, Z extends BaseCustomAdapt
 		showMessageError(e.getMessageFromResource(), event);	
 	}
 
-	public void configureActionBar(ActionBar actionBar) { }
+//	public void configureActionBar(ActionBar actionBar) { }
 
 	public abstract void onClick(T clickedElement);
 

@@ -2,11 +2,13 @@ package br.com.lvc.utility.screen;
 
 import java.util.List;
 
+import android.app.ActionBar;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -17,8 +19,6 @@ import br.com.lvc.utility.R;
 import br.com.lvc.utility.exceptions.AndroidAppException;
 import br.com.lvc.utility.taskcontrol.SimpleTask;
 import br.com.lvc.utility.taskcontrol.TaskResult;
-
-import com.markupartist.android.widget.ActionBar;
 
 public abstract class BaseCustomizeListView<T, Z extends ArrayAdapter<T>>  extends BaseListActivity {
 
@@ -37,22 +37,23 @@ public abstract class BaseCustomizeListView<T, Z extends ArrayAdapter<T>>  exten
 		setContentView(layoutID());
 		loadOnCreate();
 	}
-
+/*
 	public void removeActionBar() {
 		View view = findViewById(R.id.actionbar);
 		if(view != null)
 			view.setVisibility(View.GONE);
 	}
+	*/
 
 	/**
 	 * Primeiro método a ser acionado logo após setar o contentView.
 	 */
 	protected void loadOnCreate() {
 		listView = getListView();
-		configureActionBar();
+	//	configureActionBar();
 		buildList();
 	}
-
+/*
 	private void configureActionBar() {
 		View view = findViewById(R.id.actionbar);
 		if(view != null) {
@@ -60,7 +61,7 @@ public abstract class BaseCustomizeListView<T, Z extends ArrayAdapter<T>>  exten
 			configureActionBar(actionBar);	
 		} 
 	}
-
+*/
 
 	public void buildList() {
 		
@@ -193,6 +194,7 @@ public abstract class BaseCustomizeListView<T, Z extends ArrayAdapter<T>>  exten
 			@Override
 			public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
 				try {
+					Log.i("***  FILTRANDOO", "TEXT: " + cs);
 					adapter.getFilter().filter(cs);	
 				} catch (Exception e) {
 					e.printStackTrace();

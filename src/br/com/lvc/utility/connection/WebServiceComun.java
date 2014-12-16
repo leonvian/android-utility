@@ -156,7 +156,7 @@ public abstract class WebServiceComun {
 		return headers; 
 	}
 	
-	private DataSerializer getSerializer() {
+	protected DataSerializer getSerializer() {
 		return DataSerializer.getInstance(jsonSerializerConfig);
 	}
 	
