@@ -1,51 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <string name="nenhum_registro_encontrado">[ Nenhum registro encontrado ]</string>
+    <string name="nenhum_registro_encontrado">[ Ningún registro encontrado ]</string>
     
-    <string name="digite_aqui_para_filtrar">Digite aqui para filtrar:</string>
+    <string name="digite_aqui_para_filtrar">Entre aquí para filtrar:</string>
     
-    <string name="falha_ao_serializar">Falha ao desserializar dados do servidor!</string>
+    <string name="falha_ao_serializar">Error al deserializar datos del proveedor!</string>
     
-    <string name="este_campo_deve_ser_preenchido">Este campo deve ser preenchido.</string>
-    <string name="este_campo_e_obrigatorio">É obrigatório o preenchimento deste campo.</string>
+    <string name="este_campo_deve_ser_preenchido">Este espacio debe ser llenado.</string>
+    <string name="este_campo_e_obrigatorio">Es obligatorio el relleno de este espacio.</string>
     <string name="no_name">""</string>
-    <string name="hello">Hello World!</string>
-    <string name="attention">Atenção</string>
+    <string name="attention">Atención</string>
     <string name="wait">Aguarde...</string>
     <string name="empty"> </string>
-    <string name="do_you_really_want_out">Deseja realmente sair?</string>
-    <string name="do_you_really_want_delete">Deseja realmente deletar esse registro?</string>
-    <string name="yes">Sim</string>
-    <string name="no">Não</string>
-    <string name="options">Opções</string>
-    <string name="processing">Processando</string>
-    <string name="sucess">Sucesso</string>
-    <string name="error">Erro</string>
-    <string name="clean">Limpar</string>
-    <string name="register_not_found">Registro(s) não encontrado(s).</string>
-    <string name="obrigatory_field">Este campo deve ser preenchido.</string>
+    <string name="do_you_really_want_out">Desea realmente salir?</string>
+    <string name="do_you_really_want_delete">Desea realmente borrar este registro? </string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+    <string name="options">Opciones</string>
+    <string name="processing">Procesando</string>
+    <string name="sucess">Suceso</string>
+    <string name="error">Error</string>
+    <string name="clean">Limpiar</string>
+    <string name="register_not_found">Registro(s) no encontrado.</string>
+    <string name="obrigatory_field">Este espacio debe ser llenado.</string>
     
-    <string name="no_video_found">Video não encontrado.</string>
+    <string name="no_video_found">Vídeo no encontrado.</string>
     <string name="find">Buscar</string>
-    <string name="novo">Novo</string>
+    <string name="novo">Nuevo</string>
     <string name="salvar">Salvar</string>
-    <string name="sair">Sair</string>
-    <string name="adicionar">Adicionar</string>
+    <string name="sair">Salir</string>
+    <string name="adicionar">Añadir</string>
     
-    <string name="nenhum_item_encontrado">Nenhum item foi encontrado!</string>
-    <string name="telefone_nao_informado">Telefone não informado!</string>
-    <string name="gostaria_realizar_ligacao">Gostaria de telefonar para este local?</string>
-    <string name="web_site_nao_informado">URL do web site não informado!</string>
+    <string name="nenhum_item_encontrado">Ningún ítem fue encontrado!</string>
+    <string name="telefone_nao_informado">Teléfono no informado!</string>
+    <string name="gostaria_realizar_ligacao">Le gustaría hacer una chamada para este local?</string>
+    <string name="web_site_nao_informado">URL de la Web site no informado!</string>
     
-    <string name="falha_conectar_servidor">Falha ao conectar com o servidor.</string>
+    <string name="falha_conectar_servidor">Error al conectarse con el provedor.</string>
    <string name="dispositivo_desconectado">Dispositivo desconectado.</string>
    <string name="dismiss">Dispensar</string>
     
     <string-array name="list_action_menu">
-        <item>Selecionar</item>
+        <item>Seleccionar</item>
         <item>Editar</item>
-        <item>Deletar</item>
+        <item>Borrar</item>
         <item>Cancelar</item>        
     </string-array>
     
