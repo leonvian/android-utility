@@ -37,23 +37,23 @@ public abstract class BaseCustomizeListView<T, Z extends ArrayAdapter<T>>  exten
 		setContentView(layoutID());
 		loadOnCreate();
 	}
-/*
+	/*
 	public void removeActionBar() {
 		View view = findViewById(R.id.actionbar);
 		if(view != null)
 			view.setVisibility(View.GONE);
 	}
-	*/
+	 */
 
 	/**
 	 * Primeiro método a ser acionado logo após setar o contentView.
 	 */
 	protected void loadOnCreate() {
 		listView = getListView();
-	//	configureActionBar();
+		//	configureActionBar();
 		buildList();
 	}
-/*
+	/*
 	private void configureActionBar() {
 		View view = findViewById(R.id.actionbar);
 		if(view != null) {
@@ -61,19 +61,19 @@ public abstract class BaseCustomizeListView<T, Z extends ArrayAdapter<T>>  exten
 			configureActionBar(actionBar);	
 		} 
 	}
-*/
+	 */
 
 	public void buildList() {
-		
+
 		if(willUseAsyncTask()) {
 			SimpleTask simpleTask = getSimpleTask();
 			executeTask(simpleTask);	
 		} else {
 			loadListWithouAsyncTask();
 		}
-		
+
 	}
-	
+
 	private void loadListWithouAsyncTask() {
 		try {
 			elements = getListElements();
@@ -144,7 +144,7 @@ public abstract class BaseCustomizeListView<T, Z extends ArrayAdapter<T>>  exten
 			});
 		}
 	}
-	
+
 	protected void setAdapterOnListView() {
 		listView.setAdapter(adapter);
 	}
@@ -154,7 +154,8 @@ public abstract class BaseCustomizeListView<T, Z extends ArrayAdapter<T>>  exten
 	}
 
 	public void treatFailGeneral(AndroidAppException e) {
-		showMessageErro(e);
+		if(!isFinishing())
+			showMessageErro(e);
 	}
 
 	public void showMessageErro(AndroidAppException e) {
@@ -221,8 +222,8 @@ public abstract class BaseCustomizeListView<T, Z extends ArrayAdapter<T>>  exten
 	public abstract Z newAdapter(List<T> elements);
 
 	public abstract List<T> getListElements() throws AndroidAppException;
-	
-	
+
+
 	public boolean willUseAsyncTask() {
 		return true;
 	}

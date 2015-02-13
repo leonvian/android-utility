@@ -16,6 +16,10 @@
 
 <resources>
     <declare-styleable name="ActionBar">
+<<<<<<< HEAD
        <!--   <attr name="title" format="string" localization="suggested" />-->
+=======
+        <!-- <attr name="title" format="string" localization="suggested" />  -->
+>>>>>>> Colocando novas cores, mexendo na biblioteca de Action Bar
     </declare-styleable>
 </resources>

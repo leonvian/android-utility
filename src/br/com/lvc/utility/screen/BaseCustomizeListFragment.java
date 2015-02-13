@@ -50,33 +50,16 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,	Bundle savedInstanceState) {
 		View view = inflateView(inflater, container, savedInstanceState);
-		//configureActionBar(view);
 		listView = (ListView) view.findViewById(android.R.id.list);
 		buildList();
-		//removeActionBar(view);
 		return  view;
 	}
-	
+
 	public View inflateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(layoutID(), null);
 		return view;
 	}
-/*
-	public void removeActionBar(View viewMain) {
-		View view = viewMain.findViewById(R.id.actionbar);
-		if(view != null)
-			view.setVisibility(View.GONE);
-	}
 
-
-	private void configureActionBar(View viewMain) {
-		View view = viewMain.findViewById(R.id.actionbar);
-		if(view != null) {
-			ActionBar actionBar = (ActionBar) view; 
-			configureActionBar(actionBar);	
-		} 
-	}
-*/
 
 	public void buildList() {
 		SimpleTask simpleTask = getSimpleTask();
@@ -152,7 +135,8 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 	}
 
 	public void treatFailGeneral(AndroidAppException e) {
-		showMessageErro(e);
+		if(!getActivity().isFinishing())
+			showMessageErro(e);
 	}
 
 	public void showMessageErro(AndroidAppException e) {
@@ -167,8 +151,8 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 			break;
 		}
 	}
-	
-	
+
+
 
 	private void showMessageInToastMode(AndroidAppException e) {
 		Toast.makeText(getActivity(), e.getMessageFromResource(), Toast.LENGTH_LONG).show();
@@ -185,8 +169,8 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 		ScreenManager.getInstance().showDialog(R.string.error, e.getMessageFromResource(), getActivity(), event,ScreenManager.MSG_ERROR);	
 	}
 
-	
-//	public void configureActionBar(ActionBar actionBar) { }
+
+	//	public void configureActionBar(ActionBar actionBar) { }
 
 	public abstract void onClick(T clickedElement);
 
@@ -196,7 +180,7 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 
 
 	private Handler handler = new Handler(); 
- 
+
 
 	public  boolean isTablet() {
 		return ScreenManager.getInstance().isTablet(getActivity());		 
@@ -299,8 +283,8 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 	protected void showMessageToastShort(int message) {
 		ScreenManager.getInstance().showMessageToastShort(getActivity(), message);
 	}
-	
-	
+
+
 	protected void showMessageToastLong(String message) {
 		ScreenManager.getInstance().showMessageToastLong(getActivity(), message);
 	}
@@ -420,7 +404,7 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 		}
 
 	}
-	
+
 
 	protected TextWatcher getTextWatcher() {
 		TextWatcher textWatcher = new TextWatcher() {
