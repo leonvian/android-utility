@@ -27,34 +27,31 @@ public abstract class BaseCustomizeListViewFragment<T, Z extends BaseCustomAdapt
 		setContentView(layoutID());
 		loadOnCreate();
 	}
-/*
-	public void removeActionBar() {
-		View view = findViewById(R.id.actionbar);
-		if(view != null)
-			view.setVisibility(View.GONE);
-	}
- */
-	/**
-	 * Primeiro método a ser acionado logo após setar o contentView.
-	 */
+
 	protected void loadOnCreate() {
 		listView = getListView();
-	//	configureActionBar();
 		buildList();
 	}
-/*
-	private void configureActionBar() {
-		View view = findViewById(R.id.actionbar);
-		if(view != null) {
-			ActionBar actionBar = (ActionBar) view; 
-			configureActionBar(actionBar);	
-		} 
-	}
-*/
 
 	public void buildList() {
-		SimpleTask simpleTask = getSimpleTask();
-		executeTask(simpleTask);
+		if(willUseAsyncTask()) {
+			SimpleTask simpleTask = getSimpleTask();
+			executeTask(simpleTask);	
+		} else {
+			loadListWithouAsyncTask();
+		}
+	}
+	
+	private void loadListWithouAsyncTask() {
+		try {
+			elements = getListElements();
+			configureListViewProcessAfterTask();
+		} catch (AndroidAppException e) {
+			if(elements != null) {
+				configureListViewProcessAfterTask();
+			}	
+			treatFailGeneral(e);
+		}	 
 	}
 
 	protected int layoutID() {
@@ -159,4 +156,8 @@ public abstract class BaseCustomizeListViewFragment<T, Z extends BaseCustomAdapt
 	public abstract Z newAdapter(List<T> elements);
 
 	public abstract List<T> getListElements() throws AndroidAppException;
+	
+	public boolean willUseAsyncTask() {
+		return true;
+	}
 }

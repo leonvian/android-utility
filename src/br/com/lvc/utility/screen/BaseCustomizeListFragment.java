@@ -60,12 +60,26 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 		return view;
 	}
 
-
 	public void buildList() {
-		SimpleTask simpleTask = getSimpleTask();
-		executeTask(simpleTask);
+		if(willUseAsyncTask()) {
+			SimpleTask simpleTask = getSimpleTask();
+			executeTask(simpleTask);	
+		} else {
+			loadListWithouAsyncTask();
+		}
 	}
-
+	
+	private void loadListWithouAsyncTask() {
+		try {
+			elements = getListElements();
+			configureListViewProcessAfterTask();
+		} catch (AndroidAppException e) {
+			if(elements != null) {
+				configureListViewProcessAfterTask();
+			}	
+			treatFailGeneral(e);
+		}	 
+	}
 
 	protected void executeTask(SimpleTask task) {
 		TaskManager taskManager = new TaskManager(getActivity(), task);
@@ -429,6 +443,10 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 		};
 
 		return textWatcher;
+	}
+	
+	public boolean willUseAsyncTask() {
+		return true;
 	}
 
 }

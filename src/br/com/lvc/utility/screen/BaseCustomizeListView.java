@@ -37,31 +37,14 @@ public abstract class BaseCustomizeListView<T, Z extends ArrayAdapter<T>>  exten
 		setContentView(layoutID());
 		loadOnCreate();
 	}
-	/*
-	public void removeActionBar() {
-		View view = findViewById(R.id.actionbar);
-		if(view != null)
-			view.setVisibility(View.GONE);
-	}
-	 */
-
+ 
 	/**
 	 * Primeiro método a ser acionado logo após setar o contentView.
 	 */
 	protected void loadOnCreate() {
 		listView = getListView();
-		//	configureActionBar();
 		buildList();
 	}
-	/*
-	private void configureActionBar() {
-		View view = findViewById(R.id.actionbar);
-		if(view != null) {
-			ActionBar actionBar = (ActionBar) view; 
-			configureActionBar(actionBar);	
-		} 
-	}
-	 */
 
 	public void buildList() {
 

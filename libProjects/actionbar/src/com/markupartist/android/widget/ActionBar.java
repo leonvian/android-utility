@@ -69,22 +69,17 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
         mActionsView = (LinearLayout) mBarView.findViewById(R.id.actionbar_actions);
         
         mProgress = (ProgressBar) mBarView.findViewById(R.id.actionbar_progress);
-
+        /*
         TypedArray a = context.obtainStyledAttributes(attrs,
                 R.styleable.ActionBar);
-<<<<<<< HEAD
-        /*CharSequence title = a.getString(R.styleable.ActionBar_title);
-        if (title != null) {
-            setTitle(title);
-        }*/
-=======
-      /*  CharSequence title = a.getString(R.styleable.ActionBar_title);
+
+        CharSequence title = a.getString(R.styleable.ActionBar_title);
         if (title != null) {
             setTitle(title);
         }
-        */
->>>>>>> Colocando novas cores, mexendo na biblioteca de Action Bar
+ 
         a.recycle();
+        */
     }
 
     public void setHomeAction(Action action) {
