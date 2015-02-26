@@ -51,6 +51,7 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,	Bundle savedInstanceState) {
 		View view = inflateView(inflater, container, savedInstanceState);
 		listView = (ListView) view.findViewById(android.R.id.list);
+		
 		buildList();
 		return  view;
 	}
@@ -120,18 +121,18 @@ public abstract class BaseCustomizeListFragment<T, Z extends BaseCustomAdapter<T
 		return simpleTask;
 	}
 
+	 
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		T selectedObject = adapter.getItem(position);
+		onClick(selectedObject);
+	}
 
 	public void configureListViewProcessAfterTask() {
 		adapter = newAdapter(elements);         
 		listView.setAdapter(adapter);
-		listView.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				T selectedObject = adapter.getItem(position);
-				onClick(selectedObject); 
-			}
-		});
+	 
 
 		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
