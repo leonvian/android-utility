@@ -278,7 +278,10 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
 		}
 		
 		public abstract void performAction(View view);
-		public abstract Object getTag();
+		
+		public  Object getTag() {
+			return drawableRES;
+		}
 
 		@Override
 		public int hashCode() {
