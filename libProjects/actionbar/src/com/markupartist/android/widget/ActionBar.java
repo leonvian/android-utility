@@ -20,9 +20,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -34,7 +32,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.markupartist.android.widget.actionbar.R;
 
@@ -44,7 +41,6 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
 	private RelativeLayout mBarView;
 	private ImageView mLogoView;
 	private View mBackIndicator;
-	//private View mHomeView;
 	private TextView mTitleView;
 	private LinearLayout mActionsView;
 	private ImageButton mHomeBtn;
@@ -297,35 +293,5 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
 			return true;
 		}
 	}
-	
-	/*
-	public static class IntentAction extends AbstractAction {
-		private Context mContext;
-		private Intent mIntent;
-
-		public IntentAction(Context context, Intent intent, int drawable) {
-			super(drawable);
-			mContext = context;
-			mIntent = intent;
-		}
-
-		@Override
-		public void performAction(View view) {
-			try {
-				mContext.startActivity(mIntent); 
-			} catch (ActivityNotFoundException e) {
-				Toast.makeText(mContext,
-						mContext.getText(R.string.actionbar_activity_not_found),
-						Toast.LENGTH_SHORT).show();
-			}
-		}
-	}
-
-	
-    public static abstract class SearchAction extends AbstractAction {
-        public SearchAction() {
-            super(R.drawable.actionbar_search);
-        }
-    }
-	 */
+	 
 }
