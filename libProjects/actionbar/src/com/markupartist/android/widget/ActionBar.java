@@ -46,7 +46,7 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
 	private ImageButton mHomeBtn;
 	private RelativeLayout mHomeLayout;
 	private ProgressBar mProgress;
-	private List<Action> actions = new ArrayList<Action>();
+	private List<AbstractAction> actions = new ArrayList<AbstractAction>();
 
 	public ActionBar(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -67,10 +67,14 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
 		mProgress = (ProgressBar) mBarView.findViewById(R.id.actionbar_progress); 
 	}
 
-	public void setHomeAction(Action action) {
+	public void setHomeAction(AbstractAction action) {
 		mHomeBtn.setOnClickListener(this);
 		mHomeBtn.setTag(action);
-		mHomeBtn.setImageDrawable(action.getDrawable());
+		if(action.getDrawableRES() == -1) {
+			mHomeBtn.setImageDrawable(action.getDrawable());	
+		} else {
+			mHomeBtn.setImageResource(action.getDrawableRES());
+		}
 		mHomeLayout.setVisibility(View.VISIBLE);
 	}
 
@@ -141,8 +145,8 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
 	@Override
 	public void onClick(View view) {
 		final Object tag = view.getTag();
-		if (tag instanceof Action) {
-			final Action action = (Action) tag;
+		if (tag instanceof AbstractAction) {
+			final AbstractAction action = (AbstractAction) tag;
 			action.performAction(view);
 		}
 	}
@@ -162,7 +166,7 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
 	 * Adds a new {@link Action}.
 	 * @param action the action to add
 	 */
-	public void addAction(Action action) {
+	public void addAction(AbstractAction action) {
 		final int index = mActionsView.getChildCount();
 		addAction(action, index);
 	}
@@ -172,7 +176,7 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
 	 * @param action the action to add
 	 * @param index the position at which to add the action
 	 */
-	public void addAction(Action action, int index) {
+	public void addAction(AbstractAction action, int index) {
 		if(!actions.contains(action)) {
 			mActionsView.addView(inflateAction(action), index);
 			actions.add(action);	
@@ -199,13 +203,13 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
 	 * Remove a action from the action bar.
 	 * @param action The action to remove
 	 */
-	public void removeAction(Action action) {
+	public void removeAction(AbstractAction action) {
 		int childCount = mActionsView.getChildCount();
 		for (int i = 0; i < childCount; i++) {
 			View view = mActionsView.getChildAt(i);
 			if (view != null) {
 				final Object tag = view.getTag();
-				if (tag instanceof Action && tag.equals(action)) {
+				if (tag instanceof AbstractAction && tag.equals(action)) {
 					mActionsView.removeView(view);
 					actions.remove(action);
 				}
@@ -226,11 +230,17 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
 	 * @param action the action to inflate
 	 * @return a view
 	 */
-	private View inflateAction(Action action) {
+	private View inflateAction(AbstractAction action) {
 		View view = mInflater.inflate(R.layout.actionbar_item, mActionsView, false);
 
 		ImageButton labelView = (ImageButton) view.findViewById(R.id.actionbar_item);
-		labelView.setImageDrawable(action.getDrawable());
+		
+		if(action.getDrawableRES() == -1) {
+			labelView.setImageDrawable(action.getDrawable());	
+		} else {
+			labelView.setImageResource(action.getDrawableRES());
+		}
+		
 
 		view.setTag(action);
 		view.setOnClickListener(this);
@@ -240,33 +250,35 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
 	/**
 	 * A {@link LinkedList} that holds a list of {@link Action}s.
 	 */
-	public static class ActionList extends LinkedList<Action> {
+	public static class ActionList extends LinkedList<AbstractAction> {
 	}
-
-	/**
-	 * Definition of an action that could be performed, along with a icon to
-	 * show.
-	 */
-	public interface Action {
-		public Drawable getDrawable();
-		public void performAction(View view);
-		public Object getTag();
-	}
-	
-
-	public static abstract class AbstractAction implements Action {
+ 
+	public static abstract class AbstractAction /*implements Action */ {
 
 		private String tag;
 		private Drawable drawable;
+		private int drawableRES = -1;
+		
+		
+		public AbstractAction(int drawable) {
+			this.drawableRES = drawable;
+		}
 
 		public AbstractAction(Drawable drawable) {
 			this.drawable = drawable;
 		} 
+		
+		public int getDrawableRES() {
+			return drawableRES;
+		}
 
-		@Override
+		
 		public Drawable getDrawable() {	
 			return drawable;
 		}
+		
+		public abstract void performAction(View view);
+		public abstract Object getTag();
 
 		@Override
 		public int hashCode() {
